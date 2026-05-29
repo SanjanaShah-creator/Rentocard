@@ -86,124 +86,63 @@ export default function Home() {
 
       {/* ── HERO ── */}
       <section className="hero">
-        <div className="hero-grid-bg" />
-        <div className="hero-inner">
-          <div>
-            <div className="hero-badge">
-              <span className="badge-dot" />
-              <span className="badge-teal">New</span> — MacBook Pro M4 now available for rent
-            </div>
-            <h1 className="hero-h1">
-              Rent Premium.<br />
-              <span className="highlight">Pay Less.</span><br />
-              Live Better.
-            </h1>
-            <div className="hero-tagline">
-              <span className="tag-teal">Rent</span>
-              <span className="tag-sep" />
-              <span className="tag-orange">Relax</span>
-              <span className="tag-sep" />
-              <span className="tag-teal">Return</span>
-            </div>
-            <p className="hero-desc">
-              Laptops, TVs, Gaming Consoles, Projectors &amp; more — delivered to your door in under 24 hours. No ownership, no depreciation, no regrets.
-            </p>
-            <div className="hero-search">
-              <div className="hs-seg">
-                <span className="hs-ico">📍</span>
-                <div><div className="hs-lbl">Your City</div><div className="hs-val">Bengaluru ▾</div></div>
-              </div>
-              <div className="hs-seg" style={{flex:2}}>
-                <span className="hs-ico">🔍</span>
-                <div style={{width:'100%'}}>
-                  <div className="hs-lbl">What do you need?</div>
-                  <input className="hs-input" type="text" placeholder="Search laptops, TVs, PS5, projectors…" />
-                </div>
-              </div>
-              <button className="hs-btn">Find Rentals</button>
-            </div>
-            <div className="hero-pills">
-              {['⚡ 24-hr delivery','🔒 100% refundable deposit','🛠️ Free maintenance','⬆️ Upgrade anytime'].map(p => (
-                <div key={p} className="h-pill">{p}</div>
-              ))}
-            </div>
+
+        {/* Full-bleed background image */}
+        <div className="hero-bg-img">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/Hero Section Light.png" alt="Rent premium electronics" />
+        </div>
+
+        {/* Text — overlaid on the image, left side */}
+        <div className="hero-left">
+          <div className="hero-badge">
+            <span className="badge-dot" />
+            <span className="badge-hi">New</span>
+            &nbsp;— MacBook Pro M4 now available for rent
           </div>
-
-          {/* ── Hero product showcase ── */}
-          <div className="hero-showcase">
-            <div className="hero-prod-grid">
-
-              {/* MacBook — tall, spans 2 rows */}
-              <div className="hp-card hp-card-tall">
-                <div className="hp-img">
-                  <span className="hp-badge">🔥 Most Rented</span>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="https://www.rentocart.com/wp-content/uploads/2024/05/MacBook-Air-M1-8GB-RAM-256-GB-SSD.jpg" alt="MacBook Air M1" />
-                </div>
-                <div className="hp-foot">
-                  <div className="hp-name">MacBook Air M1 · 8GB / 256GB</div>
-                  <div style={{display:'flex',alignItems:'baseline',gap:4}}>
-                    <span className="hp-price">₹89</span><span className="hp-per">/day</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* PS5 — top right */}
-              <div className="hp-card">
-                <div className="hp-img">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="https://www.rentocart.com/wp-content/uploads/2024/02/sony-playstation-5-disk-version-gaming-console-1-600x600-1.webp" alt="PS5" />
-                </div>
-                <div className="hp-foot">
-                  <div className="hp-name">PlayStation 5</div>
-                  <div style={{display:'flex',alignItems:'baseline',gap:4}}>
-                    <span className="hp-price">₹120</span><span className="hp-per">/day</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Projector — bottom right */}
-              <div className="hp-card">
-                <div className="hp-img">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="https://www.rentocart.com/wp-content/uploads/2024/11/Epson-Projector-3300-Lumens.png" alt="Projector" />
-                </div>
-                <div className="hp-foot">
-                  <div className="hp-name">Epson Projector 3300L</div>
-                  <div style={{display:'flex',alignItems:'baseline',gap:4}}>
-                    <span className="hp-price">₹450</span><span className="hp-per">/day</span>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-            {/* Stats strip */}
-            <div className="hero-stats-strip">
-              <div className="hss-item"><div className="hss-val">50K+</div><div className="hss-lbl">Happy Customers</div></div>
-              <div className="hss-sep" />
-              <div className="hss-item"><div className="hss-val">4.8★</div><div className="hss-lbl">Average Rating</div></div>
-              <div className="hss-sep" />
-              <div className="hss-item"><div className="hss-val">24h</div><div className="hss-lbl">Delivery</div></div>
-              <div className="hss-sep" />
-              <div className="hss-item"><div className="hss-val">9</div><div className="hss-lbl">Cities</div></div>
-            </div>
+          <h1 className="hero-h1">
+            Rent Laptops, TVs<br />&amp; Premium Gear
+          </h1>
+          <p className="hero-desc">
+            India&apos;s most trusted electronics rental platform.<br />Delivered to your door in under 24 hours.
+          </p>
+          <div className="hero-ctas">
+            <a href="#products" className="hcta-p">Browse Products →</a>
+            <a href="#how" className="hcta-g">How It Works</a>
           </div>
         </div>
+
+        {/* Search bar — absolute bottom right */}
+        <div className="hero-chip-bar">
+          <div className="hcb-field">
+            <span className="hcb-lbl">📍 City</span>
+            <span className="hcb-val">Bengaluru ▾</span>
+          </div>
+          <div className="hcb-sep" />
+          <div className="hcb-field hcb-field--grow">
+            <span className="hcb-lbl">🔍 What do you need?</span>
+            <input className="hcb-input" type="text" placeholder="Laptops, PS5, TV, projector…" />
+          </div>
+          <button className="hcb-btn">Find →</button>
+        </div>
+
       </section>
 
-      {/* ── MARQUEE ── */}
+      {/* ── MARQUEE — client logos ── */}
       <div className="marquee-wrap">
         <div className="marquee-track">
-          {[...Array(2)].flatMap(() => [
-            ['💻','Laptops & MacBooks'],['📺','Smart TVs'],['🎮','Gaming Consoles'],
-            ['📡','Projectors'],['📷','Cameras & GoPro'],['🌬️','Air Purifiers'],
-            ['🎤','Audio Systems'],['📱','Tablets & iPads'],['🖨️','Printers'],['💼','Office Equipment'],
-          ]).map(([icon, label], i) => (
-            <span key={i} style={{display:'flex',alignItems:'center',gap:8}}>
-              {i > 0 && <span className="mq-sep" />}
-              <span className="mq-item"><span>{icon}</span>{label}</span>
-            </span>
+          {[0,1].map(copy => (
+            <div key={copy} className="mq-set">
+              {[1,2,3,4,5,6,7,8,9,10].map(n => {
+                const ext = [1,3,5,7,9,10].includes(n) ? 'jpg' : 'png'
+                return (
+                  <span key={n} className="mq-logo-wrap">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={`/logo ${n}.${ext}`} alt={`client ${n}`} className="mq-logo" loading="eager" />
+                  </span>
+                )
+              })}
+            </div>
           ))}
         </div>
       </div>
@@ -234,7 +173,7 @@ export default function Home() {
             {[
               { img: 'https://www.rentocart.com/wp-content/uploads/2024/02/sony-playstation-5-disk-version-gaming-console-1-600x600-1.webp', name: 'Gaming',  count: '60+', blend: true  },
               { img: 'https://www.rentocart.com/wp-content/uploads/2026/02/GoPro-hero-13.jpg.jpeg',                                          name: 'Cameras', count: '75+', blend: true  },
-              { img: 'https://images.unsplash.com/photo-1593784991095-a205069470b6?w=600&h=400&fit=crop&q=85&auto=format',                    name: 'Television', count: '85+', blend: false },
+              { img: '/32-inches-HD-Ready-Smart-Android-LED-TV-1.jpg',                                                                        name: 'Television', count: '85+', blend: false },
               { img: 'https://www.rentocart.com/wp-content/uploads/2024/11/Epson-Projector-3300-Lumens.png',                                  name: 'Projectors', count: '45+', blend: true  },
             ].map(c => (
               <div key={c.name} className="bento-card bc-white">
@@ -260,8 +199,8 @@ export default function Home() {
             {[
               { img: 'https://www.rentocart.com/wp-content/uploads/2024/06/Carvaan-Saregama-Musicbar-Karaoke-on-rent-in-Kolkata-600x600.jpg', name: 'Audio',    count: '90+',  blend: true  },
               { img: 'https://www.rentocart.com/wp-content/uploads/2025/12/original-imaguyf2e6rbsnrf.webp',                                    name: 'Tablets',  count: '70+',  blend: false },
-              { img: 'https://www.rentocart.com/wp-content/uploads/2025/01/paper-shredder-8-sheet-cross-cut-1.jpg',                             name: 'Printers', count: '55+',  blend: false },
-              { img: 'https://www.rentocart.com/wp-content/uploads/2024/05/Samsung-Microwave-Oven-and-Prestige-Induction-Cooker.jpg',           name: 'Kitchen',  count: '120+', blend: false },
+              { img: 'https://www.rentocart.com/wp-content/uploads/2025/01/paper-shredder-8-sheet-cross-cut-1.jpg',                             name: 'Printers', count: '55+',  blend: true  },
+              { img: 'https://www.rentocart.com/wp-content/uploads/2024/05/Samsung-Microwave-Oven-and-Prestige-Induction-Cooker.jpg',           name: 'Kitchen',  count: '120+', blend: true  },
             ].map(c => (
               <div key={c.name} className="bento-card bc-white">
                 <div className="bc-img-zone">
@@ -281,7 +220,7 @@ export default function Home() {
           <div className="sec-row">
             <div>
               <span className="eyebrow">Top Picks</span>
-              <h2 className="h2">Trending rentals <span className="orange">this week</span></h2>
+              <h2 className="h2">Trending rentals <span className="teal">this week</span></h2>
             </div>
             <a href="#" className="see-all">View all →</a>
           </div>
@@ -379,9 +318,9 @@ export default function Home() {
             {[
               { img:'https://images.unsplash.com/photo-1529253355930-ddbe423a2ac7?w=500&h=280&fit=crop&q=85', name:'Mumbai',    count:'280+' },
               { img:'https://images.unsplash.com/photo-1587474260584-136574528ed5?w=500&h=280&fit=crop&q=85', name:'Delhi NCR', count:'260+' },
-              { img:'https://images.unsplash.com/photo-1580581096469-1b5d87e4b19a?w=500&h=280&fit=crop&q=85', name:'Hyderabad', count:'195+' },
-              { img:'https://images.unsplash.com/photo-1545566994-ced23c2f2d0c?w=500&h=280&fit=crop&q=85',    name:'Pune',      count:'160+' },
-              { img:'https://images.unsplash.com/photo-1555921015-5532091f6026?w=500&h=280&fit=crop&q=85',    name:'Kolkata',   count:'175+' },
+              { img:'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=500&h=280&fit=crop&q=85', name:'Hyderabad', count:'195+' },
+              { img:'https://images.unsplash.com/photo-1567157577867-05ccb1388e66?w=500&h=280&fit=crop&q=85',    name:'Pune',      count:'160+' },
+              { img:'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=500&h=280&fit=crop&q=85',    name:'Kolkata',   count:'175+' },
             ].map(c => (
               <div key={c.name} className="city-tile">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -441,7 +380,7 @@ export default function Home() {
                   </div>
                 ))}
               </div>
-              <div style={{marginTop:20,textAlign:'center'}}>
+              <div style={{marginTop:20}}>
                 <a href="#products" className="btn btn-teal">Start Renting Today →</a>
               </div>
             </div>
@@ -508,26 +447,105 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── APP CTA ── */}
+      {/* ── BLOG ── */}
+      <section className="section blog-sec">
+        <div className="container">
+          <div className="sec-row">
+            <div>
+              <span className="eyebrow">From The Blog</span>
+              <h2 className="h2">Tips, guides &amp; <span className="teal">rental advice</span></h2>
+            </div>
+            <a href="#" className="see-all">All posts →</a>
+          </div>
+          <div className="blog-grid">
+            {[
+              {cat:'Guide',date:'May 12, 2026',read:'5 min',img:'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&h=280&fit=crop&q=80',title:'MacBook vs Windows Laptop: Which Should You Rent?',desc:'Not sure which laptop to rent for your next project? We break down pros and cons for every use case.'},
+              {cat:'Tips',date:'Apr 28, 2026',read:'4 min',img:'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=600&h=280&fit=crop&q=80',title:'How to Save 80% on Electronics by Renting',desc:'Buying depreciating gadgets is expensive. Here\'s how smart professionals are switching to renting.'},
+              {cat:'News',date:'Apr 10, 2026',read:'2 min',img:'https://images.unsplash.com/photo-1596176530529-78163a4f7af2?w=600&h=280&fit=crop&q=80',title:'RentoCart Now Delivers Across 9 Cities in India',desc:'We\'ve expanded to Chennai and Ahmedabad! Premium electronics rentals now cover more of India than ever.'},
+            ].map(p=>(
+              <div key={p.title} className="blog-card">
+                <div className="blog-img-wrap">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={p.img} alt={p.title} className="blog-img" />
+                </div>
+                <div className="blog-body">
+                  <div className="blog-top"><span className="blog-cat">{p.cat}</span><span className="blog-meta">{p.date} · {p.read} read</span></div>
+                  <h3 className="blog-title">{p.title}</h3>
+                  <p className="blog-desc">{p.desc}</p>
+                  <a href="#" className="blog-link">Read more →</a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── FAQ ── */}
+      <section className="section faq-sec">
+        <div className="container">
+          <div className="faq-head">
+            <span className="eyebrow">Got Questions?</span>
+            <h2 className="h2">Frequently asked <span className="teal">questions</span></h2>
+          </div>
+          <div className="faq-list">
+            {[
+              {q:'How does the rental process work?',a:'Browse 1,000+ products, complete a 5-minute paperless KYC, choose your duration, and we deliver within 24 hours. Pay only after satisfaction.'},
+              {q:'What documents are needed for KYC?',a:'Just Aadhaar and PAN card. Our paperless verification takes under 5 minutes and is saved for all future rentals — no repeat uploads.'},
+              {q:'Is the security deposit fully refundable?',a:'Yes — 100% refunded within 48 hours of returning the product. No deductions, no questions asked.'},
+              {q:'What if the product gets damaged?',a:'We cover free maintenance and repair for all rentals. If something goes wrong, we fix or replace it within 4 hours at zero cost to you.'},
+              {q:'Can I extend or upgrade my rental?',a:'Absolutely. Extend anytime from your dashboard. Want a newer model? Upgrade with zero penalty — just pay the difference in rental.'},
+              {q:'How quickly is delivery after booking?',a:'We deliver, install, and demo within 24 hours across all 9 cities. Same-day delivery is available in Bengaluru for orders before 12 PM.'},
+            ].map((item,i)=>(
+              <details key={i} className="faq-item">
+                <summary className="faq-q">{item.q}<span className="faq-icon">+</span></summary>
+                <p className="faq-a">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CONTACT ── */}
       <section className="app-sec">
         <div className="app-inner">
           <div>
-            <div className="app-eyebrow">📱 Mobile App</div>
-            <h2 className="app-h2">Rent from your phone,<br />anywhere, anytime</h2>
-            <p className="app-desc">Browse, order, track delivery, and manage all your rentals from one beautiful app. Available on iOS &amp; Android.</p>
-            <div className="app-btns">
-              {[['🍎','Download on the','App Store'],['▶️','Get it on','Google Play']].map(([ico, sub, name]) => (
-                <div key={name} className="app-store">
-                  <span className="as-ico">{ico}</span>
-                  <div><div className="as-sub">{sub}</div><div className="as-name">{name}</div></div>
-                </div>
+            <div className="app-eyebrow">📬 Get In Touch</div>
+            <h2 className="app-h2">Need help finding<br />the right gear?</h2>
+            <p className="app-desc">Our rental experts will help you pick the perfect product, duration, and plan. We respond within 24 hours — no spam, just great advice.</p>
+            <div className="app-trust">
+              {[['✓','Expert rental advice'],['✓','Free delivery consultation'],['✓','Response within 24 hours']].map(([ico, txt]) => (
+                <div key={txt} className="at-item"><span>{ico}</span>{txt}</div>
               ))}
             </div>
           </div>
-          <div className="app-vis">
-            <div className={`app-phone app-phone-1`}>📋</div>
-            <div className={`app-phone app-phone-main`}>📲</div>
-            <div className={`app-phone app-phone-3`}>🛒</div>
+          <div className="contact-glass">
+            <div className="cg-row">
+              <div className="cg-field">
+                <label className="cg-lbl">Full Name</label>
+                <input className="cg-inp" type="text" placeholder="Arjun Mehta" />
+              </div>
+              <div className="cg-field">
+                <label className="cg-lbl">Phone Number</label>
+                <input className="cg-inp" type="tel" placeholder="+91 98765 43210" />
+              </div>
+            </div>
+            <div className="cg-row">
+              <div className="cg-field">
+                <label className="cg-lbl">Your City</label>
+                <select className="cg-inp">
+                  {['Bengaluru','Mumbai','Delhi NCR','Hyderabad','Pune','Kolkata','Chennai','Ahmedabad'].map(c => <option key={c}>{c}</option>)}
+                </select>
+              </div>
+              <div className="cg-field">
+                <label className="cg-lbl">What to Rent?</label>
+                <input className="cg-inp" type="text" placeholder="MacBook, PS5, Projector..." />
+              </div>
+            </div>
+            <div className="cg-field">
+              <label className="cg-lbl">Message (optional)</label>
+              <textarea className="cg-inp cg-ta" placeholder="Share your duration, budget, or any special requirements..." />
+            </div>
+            <button className="cg-btn">Send Enquiry →</button>
           </div>
         </div>
       </section>
