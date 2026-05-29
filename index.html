@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RentoCart.com — Rent · Relax · Return</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      /* Brand colors extracted from real logo */
+      --teal:      #2BB5A0;
+      --teal-d:    #1E9082;
+      --teal-l:    #3DCFBA;
+      --teal-pale: #EAF8F6;
+      --teal-pale2:#F0FAFA;
+      --orange:    #F5891A;
+      --orange-d:  #D9740E;
+      --orange-l:  #FF9F36;
+      --orange-pale:#FFF4E8;
+      --ink:       #1C1C2E;
+      --ink-2:     #4B5563;
+      --ink-3:     #9CA3AF;
+      --border:    #E8EAED;
+      --border-2:  #D1D5DB;
+      --white:     #FFFFFF;
+      --bg:        #F8FAFA;
+      --card-sh:   0 2px 12px rgba(0,0,0,.07), 0 1px 3px rgba(0,0,0,.04);
+      --card-sh-h: 0 12px 40px rgba(43,181,160,.15), 0 4px 12px rgba(0,0,0,.08);
+      --r-sm: 8px; --r-md: 14px; --r-lg: 20px; --r-xl: 28px; --r-2xl: 40px;
+      --font-d:'Plus Jakarta Sans',sans-serif;
+      --font-b:'Inter',sans-serif;
+      --ease:.3s cubic-bezier(.4,0,.2,1);
+    }
+    html{scroll-behavior:smooth}
+    body{background:var(--white);color:var(--ink);font-family:var(--font-b);overflow-x:hidden;line-height:1.6;-webkit-font-smoothing:antialiased}
+    a{text-decoration:none;color:inherit}
+    img{display:block;max-width:100%;object-fit:cover}
+    button{cursor:pointer;border:none;background:none;font-family:inherit}
+    ul{list-style:none}
+    ::-webkit-scrollbar{width:5px}
+    ::-webkit-scrollbar-thumb{background:var(--teal);border-radius:3px}
+
+    .container{max-width:1200px;margin:0 auto;padding:0 24px}
+    .section{padding:88px 0}
+    .section-sm{padding:56px 0}
+
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:7px;
+      font-family:var(--font-d);font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+      color:var(--teal);background:var(--teal-pale);padding:5px 14px;border-radius:100px;
+      margin-bottom:14px;
+    }
+    .eyebrow.orange{color:var(--orange);background:var(--orange-pale)}
+    .h2{font-family:var(--font-d);font-size:clamp(26px,3.8vw,42px);font-weight:900;line-height:1.1;color:var(--ink);margin-bottom:12px}
+    .h2 .teal{color:var(--teal)}
+    .h2 .orange{color:var(--orange)}
+    .lead{font-size:17px;color:var(--ink-2);line-height:1.75;max-width:500px}
+
+    /* Accent text — solid teal, no gradient */
+    .gt{color:#0F766E;-webkit-text-fill-color:#0F766E}
+
+    /* Buttons — solid primary only, WCAG AA (white on #0F766E = 5.4:1) */
+    .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-d);font-weight:700;font-size:15px;padding:13px 26px;border-radius:var(--r-md);transition:all var(--ease);white-space:nowrap;cursor:pointer}
+    .btn-teal{background:#0F766E;color:#fff;box-shadow:0 4px 16px rgba(15,118,110,.25)}
+    .btn-teal:hover{background:#0D5C54;transform:translateY(-2px);box-shadow:0 8px 24px rgba(15,118,110,.35)}
+    .btn-orange{background:#C2410C;color:#fff;box-shadow:0 4px 16px rgba(194,65,12,.2)}
+    .btn-orange:hover{background:#9A3412;transform:translateY(-2px)}
+    .btn-outline-teal{border:2px solid #0F766E;color:#0F766E;background:transparent}
+    .btn-outline-teal:hover{background:var(--teal-pale)}
+    .btn-white{background:#fff;color:#0F766E;box-shadow:0 4px 16px rgba(0,0,0,.12);font-weight:700}
+    .btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.18)}
+
+    /* Section row */
+    .sec-row{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:40px}
+    .see-all{display:flex;align-items:center;gap:6px;font-family:var(--font-d);font-size:14px;font-weight:700;color:var(--teal);transition:gap var(--ease)}
+    .see-all:hover{gap:10px}
+
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+    @keyframes float2{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-12px) rotate(1deg)}}
+    @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes pulseDot{0%,100%{box-shadow:0 0 0 0 rgba(43,181,160,.4)}70%{box-shadow:0 0 0 8px rgba(43,181,160,0)}}
+    @keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+    /* ══════════════════════════════
+       NAVBAR
+    ══════════════════════════════ */
+    .navbar{
+      position:fixed;top:0;left:0;right:0;z-index:999;
+      padding:12px 0;
+      background:rgba(255,255,255,.92);
+      backdrop-filter:blur(20px);
+      border-bottom:1px solid var(--border);
+      transition:all var(--ease);
+    }
+    .navbar.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.08)}
+    .nav-wrap{max-width:1280px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+
+    .nav-logo img{height:44px;width:auto;display:block}
+
+    .nav-links{display:flex;align-items:center;gap:2px}
+    .nav-a{padding:8px 13px;border-radius:var(--r-sm);font-size:14px;font-weight:600;color:var(--ink-2);transition:all var(--ease)}
+    .nav-a:hover,.nav-a.active{color:var(--teal);background:var(--teal-pale)}
+
+    .nav-right{display:flex;align-items:center;gap:10px}
+    .nav-city{
+      display:flex;align-items:center;gap:7px;padding:8px 14px;
+      border-radius:var(--r-sm);border:1.5px solid var(--border-2);
+      font-size:13px;font-weight:600;color:var(--ink);background:#fff;cursor:pointer;
+      transition:all var(--ease);
+    }
+    .nav-city:hover{border-color:var(--teal);color:var(--teal)}
+    .live-dot{width:8px;height:8px;border-radius:50%;background:var(--teal);animation:pulseDot 2s infinite}
+    .nav-login{padding:9px 18px;font-size:14px;font-weight:700;color:var(--ink-2);border-radius:var(--r-sm);transition:all var(--ease)}
+    .nav-login:hover{color:var(--teal);background:var(--teal-pale)}
+    .nav-cta{
+      padding:10px 22px;border-radius:var(--r-sm);font-family:var(--font-d);font-size:14px;font-weight:800;
+      color:#fff;background:#0F766E;
+      box-shadow:0 4px 14px rgba(15,118,110,.25);transition:all var(--ease);
+    }
+    .nav-cta:hover{background:#0D5C54;transform:translateY(-1px);box-shadow:0 7px 22px rgba(15,118,110,.35)}
+    .nav-ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+    .nav-ham span{width:24px;height:2px;background:var(--ink);border-radius:2px}
+
+    /* ══════════════════════════════
+       HERO
+    ══════════════════════════════ */
+    .hero{
+      padding-top:72px;min-height:100vh;display:flex;align-items:center;
+      position:relative;overflow:hidden;
+      background:linear-gradient(160deg,#F0FBF9 0%,#FFFDF8 55%,#FFF7EE 100%);
+    }
+    /* Decorative blobs */
+    .hero::before{content:'';position:absolute;top:-160px;right:-160px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(43,181,160,.1) 0%,transparent 65%);pointer-events:none}
+    .hero::after{content:'';position:absolute;bottom:-120px;left:-120px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(245,137,26,.08) 0%,transparent 65%);pointer-events:none}
+
+    /* Grid overlay */
+    .hero-grid-bg{
+      position:absolute;inset:0;
+      background-image:linear-gradient(rgba(43,181,160,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(43,181,160,.04) 1px,transparent 1px);
+      background-size:48px 48px;
+      mask-image:radial-gradient(ellipse 70% 60% at 50% 50%,black 30%,transparent 80%);
+      pointer-events:none;
+    }
+
+    .hero-inner{
+      max-width:1280px;margin:0 auto;padding:56px 28px;
+      display:grid;grid-template-columns:1.1fr 1fr;align-items:center;gap:72px;
+      position:relative;z-index:1;width:100%;
+    }
+
+    /* Eyebrow badge */
+    .hero-badge{
+      display:inline-flex;align-items:center;gap:8px;
+      background:linear-gradient(135deg,var(--teal-pale),var(--orange-pale));
+      border:1.5px solid rgba(43,181,160,.2);border-radius:100px;
+      padding:7px 16px;font-family:var(--font-d);font-size:13px;font-weight:700;
+      color:var(--ink-2);margin-bottom:22px;
+    }
+    .hero-badge .badge-teal{color:var(--teal);font-weight:800}
+    .hero-badge .badge-dot{width:7px;height:7px;border-radius:50%;background:var(--teal);animation:pulseDot 2s infinite}
+
+    .hero-h1{
+      font-family:var(--font-d);
+      font-size:clamp(38px,5.2vw,64px);
+      font-weight:900;line-height:1.08;letter-spacing:-.02em;
+      color:var(--ink);margin-bottom:20px;
+    }
+
+    /* Animated gradient underline on keyword */
+    .hero-h1 .highlight{
+      position:relative;display:inline-block;
+      background:linear-gradient(135deg,var(--teal),var(--orange));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+
+    .hero-tagline{
+      display:flex;align-items:center;gap:8px;
+      font-family:var(--font-d);font-size:18px;font-weight:700;margin-bottom:22px;
+      letter-spacing:.02em;
+    }
+    .tag-teal{color:var(--teal)}
+    .tag-sep{width:4px;height:4px;border-radius:50%;background:var(--border-2)}
+    .tag-orange{color:var(--orange)}
+
+    .hero-desc{font-size:17px;color:var(--ink-2);line-height:1.75;margin-bottom:36px;max-width:500px}
+
+    /* Smart search bar */
+    .hero-search{
+      background:#fff;border-radius:var(--r-xl);
+      box-shadow:0 8px 40px rgba(43,181,160,.12),0 2px 8px rgba(0,0,0,.05);
+      border:1.5px solid rgba(43,181,160,.15);
+      padding:7px;display:flex;align-items:center;margin-bottom:28px;
+    }
+    .hs-seg{flex:1;display:flex;align-items:center;gap:10px;padding:10px 16px;border-right:1.5px solid var(--border)}
+    .hs-seg:last-of-type{border-right:none}
+    .hs-ico{font-size:17px;flex-shrink:0;color:var(--teal)}
+    .hs-lbl{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:2px}
+    .hs-val{font-size:14px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:4px;cursor:pointer}
+    .hs-input{border:none;outline:none;font-size:14px;font-family:var(--font-b);color:var(--ink);width:100%;background:transparent}
+    .hs-input::placeholder{color:var(--ink-3)}
+    .hs-btn{
+      flex-shrink:0;padding:12px 26px;border-radius:20px;
+      font-family:var(--font-d);font-size:15px;font-weight:800;color:#fff;
+      background:#0F766E;
+      box-shadow:0 4px 14px rgba(15,118,110,.25);transition:all var(--ease);
+    }
+    .hs-btn:hover{background:#0D5C54;transform:scale(1.03);box-shadow:0 8px 24px rgba(15,118,110,.35)}
+
+    .hero-pills{display:flex;flex-wrap:wrap;gap:10px}
+    .h-pill{
+      display:flex;align-items:center;gap:7px;background:#fff;
+      border:1.5px solid var(--border);border-radius:100px;
+      padding:7px 14px;font-size:12px;font-weight:600;color:var(--ink-2);
+      box-shadow:0 1px 4px rgba(0,0,0,.06);
+    }
+
+    /* ─── Hero Visual (right side) ─── */
+    .hero-visual{position:relative;display:flex;align-items:center;justify-content:center;height:520px}
+
+    /* Big central product card */
+    .hero-main-card{
+      position:relative;width:260px;
+      background:#fff;border-radius:var(--r-xl);
+      box-shadow:0 24px 72px rgba(43,181,160,.18),0 4px 12px rgba(0,0,0,.08);
+      overflow:hidden;z-index:3;
+      animation:float 5s ease-in-out infinite;
+    }
+    .hmc-img{height:200px;background:var(--teal-pale);display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .hmc-img img{width:100%;height:100%;object-fit:contain;padding:16px;transition:transform .4s ease}
+    .hero-main-card:hover .hmc-img img{transform:scale(1.06)}
+    .hmc-body{padding:16px}
+    .hmc-tag{font-size:11px;font-weight:800;color:var(--teal);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}
+    .hmc-name{font-family:var(--font-d);font-size:15px;font-weight:800;color:var(--ink);margin-bottom:10px;line-height:1.3}
+    .hmc-price{font-family:var(--font-d);font-size:22px;font-weight:900;color:var(--teal)}
+    .hmc-per{font-size:13px;color:var(--ink-3);font-weight:500}
+    .hmc-cta{
+      display:block;width:100%;margin-top:12px;padding:11px;
+      background:#0F766E;
+      color:#fff;font-family:var(--font-d);font-size:14px;font-weight:800;
+      border-radius:var(--r-md);text-align:center;transition:background var(--ease);
+    }
+    .hmc-cta:hover{background:#0D5C54}
+
+    /* Secondary floating cards */
+    .hero-side-card{
+      position:absolute;width:200px;
+      background:#fff;border-radius:var(--r-lg);
+      box-shadow:0 12px 40px rgba(0,0,0,.1);overflow:hidden;
+      transition:all var(--ease);cursor:pointer;
+    }
+    .hero-side-card:hover{transform:scale(1.03);box-shadow:0 20px 56px rgba(43,181,160,.2)}
+    .hero-side-card.left{left:-40px;top:60px;z-index:2;animation:float2 6s ease-in-out infinite}
+    .hero-side-card.right{right:-40px;top:100px;z-index:2;animation:float 4.5s ease-in-out 1s infinite}
+    .hsc-img{height:120px;background:var(--orange-pale);overflow:hidden}
+    .hsc-img img{width:100%;height:100%;object-fit:contain;padding:10px}
+    .hsc-info{padding:12px}
+    .hsc-name{font-family:var(--font-d);font-size:12px;font-weight:800;color:var(--ink);margin-bottom:4px}
+    .hsc-price{font-size:12px;font-weight:700;color:var(--orange)}
+
+    /* Floating badges */
+    .hero-badge-float{
+      position:absolute;background:#fff;border-radius:var(--r-md);
+      padding:12px 16px;box-shadow:0 8px 28px rgba(0,0,0,.1);
+      border:1.5px solid var(--border);
+    }
+    .hbf-stat{top:-20px;right:60px;animation:float2 5s ease-in-out infinite;z-index:4}
+    .hbf-delivery{bottom:20px;left:-20px;display:flex;align-items:center;gap:10px;animation:float 4s ease-in-out 1.5s infinite;z-index:4}
+    .hbf-rating{bottom:60px;right:-10px;z-index:4;animation:float2 5.5s ease-in-out .5s infinite}
+    .hbf-val{font-family:var(--font-d);font-size:22px;font-weight:900;color:var(--teal);line-height:1}
+    .hbf-lbl{font-size:11px;color:var(--ink-2);font-weight:500;margin-top:3px}
+    .hbf-ico{font-size:26px}
+    .hbf-d-title{font-family:var(--font-d);font-size:12px;font-weight:800;color:var(--teal)}
+    .hbf-d-sub{font-size:11px;color:var(--ink-3)}
+    .hbf-stars{color:#F59E0B;font-size:14px;letter-spacing:1px;margin-bottom:2px}
+    .hbf-rt{font-family:var(--font-d);font-size:12px;font-weight:800;color:var(--ink)}
+    .hbf-rc{font-size:11px;color:var(--ink-3)}
+
+    /* ══════════════════════════════
+       MARQUEE
+    ══════════════════════════════ */
+    .marquee-wrap{overflow:hidden;background:#fff;padding:18px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .marquee-track{display:flex;gap:36px;width:max-content;animation:marquee 30s linear infinite}
+    .mq-item{display:flex;align-items:center;gap:10px;white-space:nowrap;font-family:var(--font-d);font-size:13px;font-weight:700;color:var(--ink-2)}
+    .mq-item span{font-size:18px}
+    .mq-sep{width:20px;height:1px;background:var(--border);flex-shrink:0}
+
+    /* ══════════════════════════════
+       CATEGORIES — BENTO GRID
+    ══════════════════════════════ */
+    .cats-sec{background:#fff}
+
+    .bento-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+    }
+
+    /* Base card — no padding here; each flavour handles its own layout */
+    .bento-card{
+      border-radius:20px;overflow:hidden;cursor:pointer;
+      position:relative;transition:all .3s cubic-bezier(.4,0,.2,1);
+      height:196px;
+    }
+
+    /* ══ THREE card flavours — clean, not eye-straining ══
+       1. bento-wide  : teal gradient, white text, image right (featured/wide)
+       2. bc-white    : white bg, subtle border, image fills top, text bar below
+       3. bc-plain    : solid teal, text + icon centred (categories with no product photo)
+    ══════════════════════════════════════════════════════ */
+
+    /* ── 1. Featured wide cards (teal) ─────────────────── */
+    .bento-wide{
+      grid-column:span 2;
+      background:linear-gradient(130deg,#0C4A42 0%,#0F766E 100%);
+      display:flex;align-items:center;gap:24px;padding:28px 28px 28px 32px;
+      box-shadow:0 4px 20px rgba(13,92,84,.18);
+    }
+    .bento-wide:hover{transform:translateY(-5px);box-shadow:0 18px 52px rgba(13,92,84,.32)}
+
+    .bw-text{flex:1;min-width:0}
+    .bw-eyebrow{font-size:11px;font-weight:700;color:rgba(255,255,255,.6);
+      letter-spacing:.09em;text-transform:uppercase;margin-bottom:8px}
+    .bw-name{font-family:var(--font-d);font-size:clamp(20px,2.2vw,26px);
+      font-weight:900;color:#fff;line-height:1.2;margin-bottom:14px}
+    .bw-link{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-d);
+      font-size:13px;font-weight:700;color:rgba(255,255,255,.78)}
+
+    /* White product box — intentional, clean, no mix-blend tricks */
+    .bw-img-box{
+      width:152px;height:152px;flex-shrink:0;border-radius:14px;
+      background:#fff;
+      display:flex;align-items:center;justify-content:center;
+      overflow:hidden;
+      box-shadow:0 6px 24px rgba(0,0,0,.18);
+      transition:transform .4s cubic-bezier(.34,1.56,.64,1);
+    }
+    .bw-img-box img{
+      width:82%;height:82%;object-fit:contain;
+      mix-blend-mode:multiply;
+      transition:transform .4s cubic-bezier(.34,1.56,.64,1);
+    }
+    .bento-wide:hover .bw-img-box{transform:translateY(-6px) rotate(-2deg) scale(1.04)}
+    .bento-wide:hover .bw-img-box img{transform:scale(1.08)}
+
+    /* ── 2. White product cards ─────────────────────────── */
+    .bc-white{
+      background:#fff;border:1.5px solid #E2EDEB;
+      display:flex;flex-direction:column;overflow:hidden;
+      box-shadow:0 2px 8px rgba(0,0,0,.05);
+    }
+    .bc-white:hover{
+      border-color:#0F766E;
+      box-shadow:0 10px 32px rgba(15,118,110,.12);
+      transform:translateY(-5px);
+    }
+    .bc-img-zone{
+      flex:1;overflow:hidden;
+      background:#F4FAF9;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .bc-img-zone img{
+      max-width:70%;max-height:76%;object-fit:contain;
+      mix-blend-mode:multiply; /* white photo bg blends with white card bg → disappears */
+      transition:transform .38s cubic-bezier(.34,1.56,.64,1);
+    }
+    .bc-white:hover .bc-img-zone img{transform:scale(1.1)}
+    .bc-foot{
+      padding:10px 14px;border-top:1px solid #EBF4F2;
+      display:flex;align-items:center;justify-content:space-between;
+      background:#fff;
+    }
+    .bc-foot-name{font-family:var(--font-d);font-size:13px;font-weight:800;color:var(--ink)}
+    .bc-foot-count{font-size:11px;color:var(--ink-3)}
+
+
+    /* ══════════════════════════════
+       PRODUCTS
+    ══════════════════════════════ */
+    .products-sec{background:#fff}
+    .filter-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+    .chip{
+      padding:8px 18px;border-radius:100px;border:1.5px solid var(--border-2);
+      font-size:13px;font-weight:700;color:var(--ink-2);background:#fff;cursor:pointer;transition:all var(--ease);
+    }
+    .chip:hover,.chip.on{background:var(--teal);color:#fff;border-color:var(--teal);box-shadow:0 4px 14px rgba(43,181,160,.25)}
+    .chip.on-o{background:var(--orange);color:#fff;border-color:var(--orange);box-shadow:0 4px 14px rgba(245,137,26,.25)}
+
+    .products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+
+    .p-card{
+      background:#fff;border-radius:var(--r-lg);overflow:hidden;
+      box-shadow:var(--card-sh);border:1.5px solid var(--border);cursor:pointer;transition:all var(--ease);
+    }
+    .p-card:hover{transform:translateY(-5px);box-shadow:var(--card-sh-h);border-color:rgba(43,181,160,.25)}
+
+    .p-img{
+      height:200px;background:var(--bg);position:relative;overflow:hidden;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .p-img img{
+      max-width:80%;max-height:80%;object-fit:contain;
+      transition:transform .4s ease;
+    }
+    .p-card:hover .p-img img{transform:scale(1.08)}
+
+    /* Subtle gradient tint per card color */
+    .p-img.t-teal{background:linear-gradient(145deg,var(--teal-pale),#fff)}
+    .p-img.t-orange{background:linear-gradient(145deg,var(--orange-pale),#fff)}
+    .p-img.t-blue{background:linear-gradient(145deg,#EEF2FF,#fff)}
+    .p-img.t-green{background:linear-gradient(145deg,#ECFDF5,#fff)}
+
+    .p-badge{
+      position:absolute;top:10px;left:10px;z-index:2;
+      font-size:11px;font-weight:800;padding:4px 10px;border-radius:100px;
+    }
+    .p-badge.hot{background:linear-gradient(135deg,#EF4444,#F97316);color:#fff}
+    .p-badge.new{background:linear-gradient(135deg,var(--teal),var(--teal-d));color:#fff}
+    .p-badge.pop{background:linear-gradient(135deg,#7C3AED,#9333EA);color:#fff}
+
+    .p-wish{
+      position:absolute;top:10px;right:10px;z-index:2;
+      width:32px;height:32px;border-radius:50%;
+      background:rgba(255,255,255,.9);box-shadow:0 2px 8px rgba(0,0,0,.1);
+      display:flex;align-items:center;justify-content:center;font-size:13px;
+      cursor:pointer;transition:all var(--ease);
+    }
+    .p-wish:hover{background:#fff;transform:scale(1.15)}
+
+    .p-body{padding:15px}
+    .p-cat{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--teal);margin-bottom:5px}
+    .p-name{font-family:var(--font-d);font-size:14px;font-weight:800;color:var(--ink);margin-bottom:10px;line-height:1.35}
+    .p-price-row{display:flex;align-items:baseline;gap:6px;margin-bottom:12px}
+    .p-price{font-family:var(--font-d);font-size:20px;font-weight:900;color:var(--teal)}
+    .p-unit{font-size:12px;color:var(--ink-3)}
+    .p-old{font-size:12px;color:var(--ink-3);text-decoration:line-through}
+    .p-foot{display:flex;align-items:center;justify-content:space-between;padding-top:10px;border-top:1.5px solid var(--border)}
+    .p-rating{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--ink-2)}
+    .star{color:#F59E0B}
+    .rent-btn{
+      padding:8px 15px;border-radius:var(--r-sm);
+      font-family:var(--font-d);font-size:12px;font-weight:800;
+      color:#0F766E;background:var(--teal-pale);
+      border:1.5px solid rgba(15,118,110,.2);transition:all var(--ease);
+    }
+    .rent-btn:hover{background:#0F766E;color:#fff;box-shadow:0 4px 12px rgba(15,118,110,.25)}
+
+    /* ══════════════════════════════
+       HOW IT WORKS
+    ══════════════════════════════ */
+    .how-sec{
+      background:linear-gradient(160deg,var(--teal-pale) 0%,#F0FBF9 40%,var(--orange-pale) 100%);
+      position:relative;overflow:hidden;
+    }
+    .how-sec::before{content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(245,137,26,.08),transparent 65%);pointer-events:none}
+    .how-top{text-align:center;margin-bottom:60px}
+    .how-top .lead{margin:0 auto;text-align:center}
+    .how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;position:relative}
+    .how-line{
+      position:absolute;top:44px;left:13%;right:13%;height:2px;
+      background:repeating-linear-gradient(90deg,var(--teal) 0,var(--teal) 8px,transparent 8px,transparent 18px);
+      opacity:.3;z-index:0;
+    }
+    .how-card{
+      background:#fff;border-radius:var(--r-lg);padding:28px 22px;text-align:center;
+      box-shadow:var(--card-sh);position:relative;z-index:1;border:1.5px solid rgba(43,181,160,.1);
+      transition:all var(--ease);
+    }
+    .how-card:hover{transform:translateY(-6px);box-shadow:var(--card-sh-h)}
+    .step-circle{
+      width:52px;height:52px;border-radius:50%;margin:0 auto 14px;
+      background:#0F766E;
+      display:flex;align-items:center;justify-content:center;
+      font-family:var(--font-d);font-size:20px;font-weight:900;color:#fff;
+      box-shadow:0 4px 16px rgba(15,118,110,.25);
+    }
+    .step-emoji{font-size:30px;display:block;margin-bottom:10px}
+    .step-title{font-family:var(--font-d);font-size:16px;font-weight:800;color:var(--ink);margin-bottom:7px}
+    .step-desc{font-size:13px;color:var(--ink-2);line-height:1.65}
+
+    /* ══════════════════════════════
+       STATS BANNER
+    ══════════════════════════════ */
+    .stats-banner{
+      background:#0D5C54;
+      padding:64px 0;
+    }
+    .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+    .stat-cell{text-align:center;padding:20px;border-right:1px solid rgba(255,255,255,.2)}
+    .stat-cell:last-child{border-right:none}
+    .stat-num{font-family:var(--font-d);font-size:clamp(34px,4.5vw,52px);font-weight:900;color:#fff;line-height:1;margin-bottom:5px}
+    .stat-label{font-size:14px;color:rgba(255,255,255,.8);font-weight:600}
+
+    /* ══════════════════════════════
+       CITIES
+    ══════════════════════════════ */
+    .cities-sec{background:var(--bg)}
+    .cities-mosaic{
+      display:grid;
+      grid-template-columns:1.5fr 1fr 1fr;
+      grid-template-rows:220px 220px;
+      gap:14px;margin-top:40px;
+    }
+    .city-tile{
+      position:relative;border-radius:var(--r-lg);overflow:hidden;
+      cursor:pointer;box-shadow:var(--card-sh);transition:all var(--ease);
+    }
+    .city-tile:hover{transform:translateY(-3px);box-shadow:var(--card-sh-h)}
+    .city-tile:hover img{transform:scale(1.06)}
+    .city-tile img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+    .city-tile.big{grid-row:span 2}
+    .city-over{
+      position:absolute;inset:0;
+      background:linear-gradient(0deg,rgba(28,28,46,.88) 0%,rgba(28,28,46,.1) 60%,transparent 100%);
+      display:flex;flex-direction:column;justify-content:flex-end;padding:20px;
+    }
+    .city-pill{display:inline-block;font-size:10px;font-weight:800;padding:3px 10px;border-radius:100px;background:var(--orange);color:#fff;margin-bottom:7px;width:fit-content}
+    .city-name{font-family:var(--font-d);font-size:20px;font-weight:900;color:#fff;margin-bottom:2px}
+    .city-tile.big .city-name{font-size:26px}
+    .city-count{font-size:12px;color:rgba(255,255,255,.7);font-weight:500}
+
+    /* ══════════════════════════════
+       WHY RENT
+    ══════════════════════════════ */
+    .why-sec{background:#fff}
+    .why-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+
+    .why-feats{display:flex;flex-direction:column;gap:14px;margin-top:32px}
+    .why-feat{
+      display:flex;align-items:flex-start;gap:14px;padding:18px;
+      border-radius:var(--r-md);border:1.5px solid var(--border);
+      transition:all var(--ease);
+    }
+    .why-feat:hover{border-color:rgba(43,181,160,.3);box-shadow:0 6px 24px rgba(43,181,160,.08);transform:translateX(4px)}
+    .feat-ico{
+      width:44px;height:44px;border-radius:12px;flex-shrink:0;
+      display:flex;align-items:center;justify-content:center;font-size:20px;
+    }
+    .fi-1{background:var(--teal-pale)}
+    .fi-2{background:var(--orange-pale)}
+    .fi-3{background:linear-gradient(135deg,#EEF2FF,#E0E7FF)}
+    .fi-4{background:linear-gradient(135deg,#ECFDF5,#D1FAE5)}
+    .feat-title{font-family:var(--font-d);font-size:14px;font-weight:800;color:var(--ink);margin-bottom:3px}
+    .feat-desc{font-size:13px;color:var(--ink-2);line-height:1.55}
+
+    /* Comparison table */
+    .comp{border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--card-sh);border:1.5px solid var(--border)}
+    .comp-head{
+      display:grid;grid-template-columns:1.5fr 1fr 1fr;
+      background:#0F766E;padding:15px 18px;
+    }
+    .comp-h{font-family:var(--font-d);font-size:12px;font-weight:800;color:#fff;text-align:center;letter-spacing:.04em}
+    .comp-h:first-child{text-align:left;color:rgba(255,255,255,.7)}
+    .comp-row{display:grid;grid-template-columns:1.5fr 1fr 1fr;padding:12px 18px;border-bottom:1px solid var(--border);align-items:center}
+    .comp-row:last-child{border-bottom:none}
+    .comp-row:nth-child(even){background:var(--teal-pale2)}
+    .comp-f{font-size:13px;color:var(--ink-2)}
+    .comp-c{text-align:center;font-size:13px;font-weight:600}
+    .yes{color:#10B981}
+    .no{color:#EF4444}
+    .mid{color:#F59E0B}
+
+    /* ══════════════════════════════
+       ECO
+    ══════════════════════════════ */
+    .eco-sec{
+      background:linear-gradient(160deg,#ECFDF5 0%,#F0FDF4 50%,#FFFBEB 100%);
+      position:relative;overflow:hidden;
+    }
+    .eco-inner{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+    .eco-vis{position:relative;display:flex;align-items:center;justify-content:center;height:320px}
+    .eco-ring{
+      width:220px;height:220px;border-radius:50%;
+      border:2px solid rgba(16,185,129,.25);
+      background:rgba(16,185,129,.05);
+      display:flex;align-items:center;justify-content:center;
+      position:relative;
+    }
+    .eco-ring::before{content:'';position:absolute;inset:-18px;border-radius:50%;border:1.5px dashed rgba(16,185,129,.2);animation:spin 28s linear infinite}
+    .eco-center{text-align:center}
+    .eco-earth{font-size:52px}
+    .eco-num{font-family:var(--font-d);font-size:18px;font-weight:900;color:#059669;line-height:1.2}
+    .eco-nlbl{font-size:12px;color:var(--ink-2);margin-top:2px}
+    .eco-bub{
+      position:absolute;background:#fff;border-radius:var(--r-md);
+      padding:10px 14px;box-shadow:0 6px 20px rgba(16,185,129,.12);
+      border:1.5px solid rgba(16,185,129,.12);
+    }
+    .eb1{top:15px;right:0;animation:float 4s ease-in-out infinite}
+    .eb2{bottom:25px;right:10px;animation:float2 5s ease-in-out 1s infinite}
+    .eb3{top:80px;left:-5px;animation:float 3.8s ease-in-out .5s infinite}
+    .eco-bv{font-family:var(--font-d);font-size:16px;font-weight:900;color:#10B981}
+    .eco-bl{font-size:11px;color:var(--ink-2)}
+    .eco-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+    .eco-stat{
+      background:#fff;border-radius:var(--r-md);padding:16px;text-align:center;
+      box-shadow:0 2px 10px rgba(16,185,129,.07);border:1.5px solid rgba(16,185,129,.1);
+    }
+    .eco-sv{font-family:var(--font-d);font-size:20px;font-weight:900;color:#10B981}
+    .eco-sl{font-size:11px;color:var(--ink-2);margin-top:2px}
+
+    /* ══════════════════════════════
+       TESTIMONIALS
+    ══════════════════════════════ */
+    .testi-sec{background:var(--bg)}
+    .testi-top{text-align:center;margin-bottom:50px}
+    .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .t-card{
+      background:#fff;border-radius:var(--r-lg);padding:26px;
+      box-shadow:var(--card-sh);border:1.5px solid var(--border);transition:all var(--ease);
+    }
+    .t-card:hover{transform:translateY(-4px);box-shadow:var(--card-sh-h);border-color:rgba(43,181,160,.2)}
+    .t-card.featured{border-color:rgba(43,181,160,.25);background:var(--teal-pale2)}
+    .t-stars{font-size:16px;letter-spacing:2px;color:#F59E0B;margin-bottom:12px}
+    .t-txt{font-size:14px;color:var(--ink-2);line-height:1.75;margin-bottom:18px;font-style:italic}
+    .t-txt::before{content:'\201C';font-size:24px;color:var(--teal);font-style:normal;line-height:0;vertical-align:-.35em;margin-right:2px}
+    .t-author{display:flex;align-items:center;gap:11px;padding-top:14px;border-top:1px solid var(--border)}
+    .t-av{width:42px;height:42px;border-radius:50%;background:var(--teal-pale);display:flex;align-items:center;justify-content:center;font-size:20px;border:2px solid rgba(43,181,160,.2);flex-shrink:0}
+    .t-name{font-family:var(--font-d);font-size:13px;font-weight:800;color:var(--ink)}
+    .t-role{font-size:11px;color:var(--ink-3)}
+
+    /* ══════════════════════════════
+       APP CTA
+    ══════════════════════════════ */
+    .app-sec{
+      background:#0D5C54;
+      padding:88px 0;position:relative;overflow:hidden;
+    }
+    .app-sec::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 10% 50%,rgba(255,255,255,.05),transparent)}
+    .app-inner{
+      max-width:1100px;margin:0 auto;padding:0 24px;
+      display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:56px;
+      position:relative;z-index:1;
+    }
+    .app-eyebrow{
+      display:inline-flex;align-items:center;gap:7px;
+      background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.25);
+      border-radius:100px;padding:6px 14px;
+      font-family:var(--font-d);font-size:12px;font-weight:800;color:#fff;letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px;
+    }
+    .app-h2{font-family:var(--font-d);font-size:clamp(26px,3.5vw,40px);font-weight:900;color:#fff;line-height:1.15;margin-bottom:14px}
+    .app-desc{font-size:15px;color:rgba(255,255,255,.85);line-height:1.75;margin-bottom:28px}
+    .app-btns{display:flex;gap:12px;flex-wrap:wrap}
+    .app-store{
+      display:flex;align-items:center;gap:11px;padding:12px 20px;
+      background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.22);
+      border-radius:var(--r-md);cursor:pointer;transition:all var(--ease);
+    }
+    .app-store:hover{background:rgba(255,255,255,.2);transform:translateY(-2px)}
+    .as-ico{font-size:26px}
+    .as-sub{font-size:10px;color:rgba(255,255,255,.7);font-weight:600}
+    .as-name{font-family:var(--font-d);font-size:16px;font-weight:800;color:#fff}
+    .app-vis{display:flex;justify-content:center;align-items:flex-end;gap:-20px;height:260px;position:relative}
+    .app-phone{
+      background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.18);
+      border-radius:24px;width:120px;height:210px;
+      display:flex;align-items:center;justify-content:center;font-size:44px;
+      box-shadow:0 20px 56px rgba(0,0,0,.2);
+    }
+    .app-phone:first-child{transform:rotate(-7deg) translateY(18px);margin-right:-18px;opacity:.8}
+    .app-phone.main{transform:translateY(-8px);z-index:2;animation:float 4s ease-in-out infinite;background:rgba(255,255,255,.16);opacity:1}
+    .app-phone:last-child{transform:rotate(7deg) translateY(18px);margin-left:-18px;opacity:.8}
+
+    /* ══════════════════════════════
+       FOOTER
+    ══════════════════════════════ */
+    .footer{background:var(--ink);padding:72px 0 28px}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:44px;margin-bottom:56px}
+    .footer-logo img{height:40px;width:auto;margin-bottom:14px;filter:brightness(0) invert(1);opacity:.9}
+    .footer-tagline{
+      display:flex;align-items:center;gap:6px;
+      font-family:var(--font-d);font-size:13px;font-weight:700;margin-bottom:16px;
+    }
+    .ftl-t{color:var(--teal-l)}
+    .ftl-s{color:rgba(255,255,255,.3);font-size:10px}
+    .ftl-o{color:var(--orange-l)}
+    .footer-desc{font-size:13px;color:rgba(255,255,255,.45);line-height:1.7;margin-bottom:22px;max-width:260px}
+    .f-social{display:flex;gap:9px}
+    .f-soc{
+      width:34px;height:34px;border-radius:var(--r-sm);
+      background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+      display:flex;align-items:center;justify-content:center;font-size:14px;
+      cursor:pointer;transition:all var(--ease);
+    }
+    .f-soc:hover{background:var(--teal);border-color:var(--teal);transform:translateY(-2px)}
+    .f-col-h{font-family:var(--font-d);font-size:11px;font-weight:800;color:rgba(255,255,255,.85);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px}
+    .f-links{display:flex;flex-direction:column;gap:10px}
+    .f-link{font-size:13px;color:rgba(255,255,255,.45);cursor:pointer;transition:all var(--ease)}
+    .f-link:hover{color:#fff;padding-left:4px}
+    .f-contact{display:flex;flex-direction:column;gap:11px}
+    .f-ci{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(255,255,255,.45)}
+    .f-ci-i{flex-shrink:0;font-size:14px;margin-top:1px}
+    .footer-bottom{
+      display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;
+      padding-top:24px;border-top:1px solid rgba(255,255,255,.07);
+    }
+    .f-copy{font-size:12px;color:rgba(255,255,255,.3)}
+    .f-certs{display:flex;gap:8px}
+    .f-cert{padding:4px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:5px;font-size:11px;font-weight:700;color:rgba(255,255,255,.35)}
+    .f-legal{display:flex;gap:18px}
+    .f-legal a{font-size:12px;color:rgba(255,255,255,.3);cursor:pointer;transition:color var(--ease)}
+    .f-legal a:hover{color:#fff}
+
+    .scroll-up{
+      position:fixed;bottom:28px;right:28px;z-index:998;
+      width:44px;height:44px;border-radius:50%;
+      background:#0F766E;
+      color:#fff;font-size:18px;display:flex;align-items:center;justify-content:center;
+      box-shadow:0 4px 16px rgba(15,118,110,.3);cursor:pointer;transition:all var(--ease);
+      opacity:0;pointer-events:none;
+    }
+    .scroll-up.show{opacity:1;pointer-events:auto}
+    .scroll-up:hover{background:#0D5C54;transform:translateY(-3px);box-shadow:0 10px 28px rgba(15,118,110,.4)}
+
+    /* ══════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════ */
+    @media(max-width:1100px){
+      .bento-grid{grid-template-columns:repeat(4,1fr)}
+      .products-grid{grid-template-columns:repeat(3,1fr)}
+    }
+    @media(max-width:900px){
+      .hero-inner{grid-template-columns:1fr;gap:48px}
+      .hero-visual{display:none}
+      .how-grid{grid-template-columns:repeat(2,1fr)}
+      .how-line{display:none}
+      .why-inner{grid-template-columns:1fr}
+      .eco-inner{grid-template-columns:1fr}
+      .eco-vis{display:none}
+      .app-inner{grid-template-columns:1fr}
+      .app-vis{display:none}
+      .stats-grid{grid-template-columns:repeat(2,1fr)}
+      .stat-cell{border-right:none;border-bottom:1px solid rgba(255,255,255,.15);padding:16px}
+      .footer-grid{grid-template-columns:1fr 1fr;gap:28px}
+      .testi-grid{grid-template-columns:repeat(2,1fr)}
+      .cities-mosaic{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+      .city-tile.big{grid-row:span 1}
+    }
+    @media(max-width:640px){
+      .nav-links,.nav-city,.nav-login{display:none}
+      .nav-ham{display:flex}
+      .bento-grid{grid-template-columns:repeat(2,1fr)}
+      .bento-card.bento-wide{grid-column:span 2}
+      .bento-card{height:170px}
+      .bw-img{width:110px;height:110px}
+      .products-grid{grid-template-columns:repeat(2,1fr)}
+      .cities-mosaic{grid-template-columns:1fr}
+      .testi-grid{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1fr}
+      .footer-bottom{flex-direction:column;align-items:flex-start}
+      .section{padding:60px 0}
+      .hero-search{flex-direction:column;border-radius:var(--r-lg)}
+      .hs-seg{border-right:none;border-bottom:1.5px solid var(--border)}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════ NAVBAR ════════ -->
+<nav class="navbar" id="nav">
+  <div class="nav-wrap">
+    <a href="#">
+      <img src="https://www.rentocart.com/wp-content/uploads/2023/03/img_1345_720.png"
+           alt="RentoCart.com" class="nav-logo" style="height:44px;width:auto"/>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#" class="nav-a active">Home</a></li>
+      <li><a href="#categories" class="nav-a">Categories</a></li>
+      <li><a href="#products" class="nav-a">Products</a></li>
+      <li><a href="#cities" class="nav-a">Cities</a></li>
+      <li><a href="#" class="nav-a">Partner With Us</a></li>
+      <li><a href="#" class="nav-a">Blog</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="nav-city"><span class="live-dot"></span>Bengaluru ▾</div>
+      <a href="#" class="nav-login">Log In</a>
+      <a href="#products" class="nav-cta">Rent Now →</a>
+      <div class="nav-ham" id="ham"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</nav>
+
+<!-- ════════ HERO ════════ -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-inner">
+    <!-- Left -->
+    <div>
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        <span class="badge-teal">New</span> — MacBook Pro M4 now available for rent
+      </div>
+
+      <h1 class="hero-h1">
+        Rent Premium.<br/>
+        <span class="highlight">Pay Less.</span><br/>
+        Live Better.
+      </h1>
+
+      <div class="hero-tagline">
+        <span class="tag-teal">Rent</span>
+        <span class="tag-sep"></span>
+        <span class="tag-orange">Relax</span>
+        <span class="tag-sep"></span>
+        <span class="tag-teal">Return</span>
+      </div>
+
+      <p class="hero-desc">
+        Laptops, TVs, Gaming Consoles, Projectors &amp; more — delivered to your door in under 24 hours. No ownership, no depreciation, no regrets.
+      </p>
+
+      <div class="hero-search">
+        <div class="hs-seg">
+          <span class="hs-ico">📍</span>
+          <div>
+            <div class="hs-lbl">Your City</div>
+            <div class="hs-val">Bengaluru ▾</div>
+          </div>
+        </div>
+        <div class="hs-seg" style="flex:2">
+          <span class="hs-ico">🔍</span>
+          <div style="width:100%">
+            <div class="hs-lbl">What do you need?</div>
+            <input class="hs-input" type="text" placeholder="Search laptops, TVs, PS5, projectors…"/>
+          </div>
+        </div>
+        <button class="hs-btn">Find Rentals</button>
+      </div>
+
+      <div class="hero-pills">
+        <div class="h-pill">⚡ 24-hr delivery</div>
+        <div class="h-pill">🔒 100% refundable deposit</div>
+        <div class="h-pill">🛠️ Free maintenance</div>
+        <div class="h-pill">⬆️ Upgrade anytime</div>
+      </div>
+    </div>
+
+    <!-- Right — product cards -->
+    <div class="hero-visual">
+      <!-- Main card -->
+      <div class="hero-main-card">
+        <div class="hmc-img">
+          <img src="https://www.rentocart.com/wp-content/uploads/2026/02/Macbook-M4-16GB-RAM-512GB-SSD.jpg.jpg.jpeg" alt="MacBook Pro M4"/>
+        </div>
+        <div class="hmc-body">
+          <div class="hmc-tag">Laptops · Most Rented</div>
+          <div class="hmc-name">MacBook Pro M4<br/>16GB / 512GB</div>
+          <div style="display:flex;align-items:baseline;gap:5px">
+            <span class="hmc-price">₹199</span><span class="hmc-per">/day</span>
+          </div>
+          <a href="#products" class="hmc-cta">Rent Now →</a>
+        </div>
+      </div>
+
+      <!-- Left floating card -->
+      <div class="hero-side-card left">
+        <div class="hsc-img" style="background:linear-gradient(145deg,#FEF3C7,#fff)">
+          <img src="https://www.rentocart.com/wp-content/uploads/2024/02/sony-playstation-5-disk-version-gaming-console-1-600x600-1.webp" alt="PS5"/>
+        </div>
+        <div class="hsc-info">
+          <div class="hsc-name">PlayStation 5</div>
+          <div class="hsc-price">₹120 / day</div>
+        </div>
+      </div>
+
+      <!-- Right floating card -->
+      <div class="hero-side-card right">
+        <div class="hsc-img" style="background:linear-gradient(145deg,var(--teal-pale),#fff)">
+          <img src="https://www.rentocart.com/wp-content/uploads/2024/11/Epson-Projector-3300-Lumens.png" alt="Epson Projector"/>
+        </div>
+        <div class="hsc-info">
+          <div class="hsc-name">Epson Projector</div>
+          <div class="hsc-price">₹450 / day</div>
+        </div>
+      </div>
+
+      <!-- Floating badges -->
+      <div class="hero-badge-float hbf-stat">
+        <div class="hbf-val">50K+</div>
+        <div class="hbf-lbl">Happy Renters</div>
+      </div>
+      <div class="hero-badge-float hbf-delivery">
+        <div class="hbf-ico">🚀</div>
+        <div>
+          <div class="hbf-d-title">Express Delivery</div>
+          <div class="hbf-d-sub">Under 24 hours</div>
+        </div>
+      </div>
+      <div class="hero-badge-float hbf-rating">
+        <div class="hbf-stars">★★★★★</div>
+        <div class="hbf-rt">4.8 / 5 Rating</div>
+        <div class="hbf-rc">12,000+ reviews</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ MARQUEE ════════ -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="mq-item"><span>💻</span>Laptops & MacBooks</div><div class="mq-sep"></div>
+    <div class="mq-item"><span>📺</span>Smart TVs</div><div class="mq-sep"></div>
+    <div class="mq-item"><span>🎮</span>Gaming Consoles</div><div class="mq-sep"></div>
+    <div class="mq-item"><span>📡</span>Projectors</div><div class="mq-sep"></div>
+    <div class="mq-item"><span>📷</span>Cameras & GoPro</div><div class="mq-sep"></div>
+    <div class="mq-item"><span>🌬️</span>Air Purifiers</div><div class="mq-sep"></div>
+    <div class="mq-item"><span>🎤</span>Audio Systems</div><div class="mq-sep"></div>
+    <div class="mq-item"><span>📱</span>Tablets & iPads</div><div class="mq-sep"></div>
+    <div class="mq-item"><span>🖨️</span>Printers</div><div class="mq-sep"></div>
+    <div class="mq-item"><span>💼</span>Office Equipment</div><div class="mq-sep"></div>
+    <!-- duplicate -->
+    <div class="mq-item"><span>💻</span>Laptops & MacBooks</div><div class="mq-sep"></div>
+    <div class="mq-item"><span>📺</span>Smart TVs</div><div class="mq-sep"></div>
+    <div class="mq-item"><span>🎮</span>Gaming Consoles</div><div class="mq-sep"></div>
+    <div class="mq-item"><span>📡</span>Projectors</div><div class="mq-sep"></div>
+    <div class="mq-item"><span>📷</span>Cameras & GoPro</div><div class="mq-sep"></div>
+    <div class="mq-item"><span>🌬️</span>Air Purifiers</div><div class="mq-sep"></div>
+    <div class="mq-item"><span>🎤</span>Audio Systems</div><div class="mq-sep"></div>
+    <div class="mq-item"><span>📱</span>Tablets & iPads</div><div class="mq-sep"></div>
+    <div class="mq-item"><span>🖨️</span>Printers</div><div class="mq-sep"></div>
+    <div class="mq-item"><span>💼</span>Office Equipment</div><div class="mq-sep"></div>
+  </div>
+</div>
+
+<!-- ════════ CATEGORIES ════════ -->
+<section class="section cats-sec" id="categories">
+  <div class="container">
+    <div class="sec-row">
+      <div>
+        <span class="eyebrow">Browse Categories</span>
+        <h2 class="h2">Everything in<br/>one <span class="teal">rental stop</span></h2>
+      </div>
+      <a href="#" class="see-all">View all →</a>
+    </div>
+    <div class="bento-grid">
+
+      <!-- ── ROW 1 ── -->
+
+      <!-- Laptops · wide teal · white image box -->
+      <div class="bento-card bento-wide">
+        <div class="bw-text">
+          <div class="bw-eyebrow">240+ items</div>
+          <div class="bw-name">Laptops &<br/>MacBooks</div>
+          <span class="bw-link">Explore all →</span>
+        </div>
+        <div class="bw-img-box">
+          <img src="https://www.rentocart.com/wp-content/uploads/2024/05/MacBook-Air-M1-8GB-RAM-256-GB-SSD.jpg" alt="Laptop"/>
+        </div>
+      </div>
+
+      <!-- Gaming · white card -->
+      <div class="bento-card bc-white">
+        <div class="bc-img-zone">
+          <img src="https://www.rentocart.com/wp-content/uploads/2024/02/sony-playstation-5-disk-version-gaming-console-1-600x600-1.webp" alt="PS5"/>
+        </div>
+        <div class="bc-foot">
+          <div class="bc-foot-name">Gaming</div>
+          <div class="bc-foot-count">60+ items</div>
+        </div>
+      </div>
+
+      <!-- Cameras · white card -->
+      <div class="bento-card bc-white">
+        <div class="bc-img-zone">
+          <img src="https://www.rentocart.com/wp-content/uploads/2026/02/GoPro-hero-13.jpg.jpeg" alt="GoPro"/>
+        </div>
+        <div class="bc-foot">
+          <div class="bc-foot-name">Cameras</div>
+          <div class="bc-foot-count">75+ items</div>
+        </div>
+      </div>
+
+      <!-- ── ROW 2 ── -->
+
+      <!-- Television · white card · real monitor image -->
+      <div class="bento-card bc-white">
+        <div class="bc-img-zone">
+          <img src="https://www.rentocart.com/wp-content/uploads/2024/05/Bezel-less-monitor-ultra-slim-24-inches-FHD-resolution.jpg" alt="Monitor/TV"/>
+        </div>
+        <div class="bc-foot">
+          <div class="bc-foot-name">Television</div>
+          <div class="bc-foot-count">85+ items</div>
+        </div>
+      </div>
+
+      <!-- Projectors · white card -->
+      <div class="bento-card bc-white">
+        <div class="bc-img-zone">
+          <img src="https://www.rentocart.com/wp-content/uploads/2024/11/Epson-Projector-3300-Lumens.png" alt="Epson Projector"/>
+        </div>
+        <div class="bc-foot">
+          <div class="bc-foot-name">Projectors</div>
+          <div class="bc-foot-count">45+ items</div>
+        </div>
+      </div>
+
+      <!-- Appliances · wide teal · white image box -->
+      <div class="bento-card bento-wide">
+        <div class="bw-text">
+          <div class="bw-eyebrow">150+ items</div>
+          <div class="bw-name">Appliances &<br/>Air Purifiers</div>
+          <span class="bw-link">Explore all →</span>
+        </div>
+        <div class="bw-img-box">
+          <img src="https://www.rentocart.com/wp-content/uploads/2024/05/Honeywell-Air-Touch-V3-Air-Purifier-1.jpg" alt="Air Purifier"/>
+        </div>
+      </div>
+
+      <!-- ── ROW 3 ── -->
+
+      <!-- Audio · white card · real karaoke image -->
+      <div class="bento-card bc-white">
+        <div class="bc-img-zone">
+          <img src="https://www.rentocart.com/wp-content/uploads/2024/06/Carvaan-Saregama-Musicbar-Karaoke-on-rent-in-Kolkata-600x600.jpg" alt="Karaoke System"/>
+        </div>
+        <div class="bc-foot">
+          <div class="bc-foot-name">Audio</div>
+          <div class="bc-foot-count">90+ items</div>
+        </div>
+      </div>
+
+      <!-- Tablets · white card -->
+      <div class="bento-card bc-white">
+        <div class="bc-img-zone">
+          <img src="https://www.rentocart.com/wp-content/uploads/2025/12/original-imaguyf2e6rbsnrf.webp" alt="Samsung Tab"/>
+        </div>
+        <div class="bc-foot">
+          <div class="bc-foot-name">Tablets</div>
+          <div class="bc-foot-count">70+ items</div>
+        </div>
+      </div>
+
+      <!-- Printers · white card · real shredder/printer image -->
+      <div class="bento-card bc-white">
+        <div class="bc-img-zone">
+          <img src="https://www.rentocart.com/wp-content/uploads/2025/01/paper-shredder-8-sheet-cross-cut-1.jpg" alt="Printer"/>
+        </div>
+        <div class="bc-foot">
+          <div class="bc-foot-name">Printers</div>
+          <div class="bc-foot-count">55+ items</div>
+        </div>
+      </div>
+
+      <!-- Kitchen · white card · real microwave/induction image -->
+      <div class="bento-card bc-white">
+        <div class="bc-img-zone">
+          <img src="https://www.rentocart.com/wp-content/uploads/2024/05/Samsung-Microwave-Oven-and-Prestige-Induction-Cooker.jpg" alt="Kitchen Appliances"/>
+        </div>
+        <div class="bc-foot">
+          <div class="bc-foot-name">Kitchen</div>
+          <div class="bc-foot-count">120+ items</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════ PRODUCTS ════════ -->
+<section class="section products-sec" id="products">
+  <div class="container">
+    <div class="sec-row">
+      <div>
+        <span class="eyebrow">Top Picks</span>
+        <h2 class="h2">Trending rentals <span class="orange">this week</span></h2>
+      </div>
+      <a href="#" class="see-all">View all products →</a>
+    </div>
+
+    <div class="filter-chips">
+      <button class="chip on">All Products</button>
+      <button class="chip">Laptops</button>
+      <button class="chip">Gaming</button>
+      <button class="chip">Cameras</button>
+      <button class="chip">Projectors</button>
+      <button class="chip">Appliances</button>
+      <button class="chip">Tablets</button>
+    </div>
+
+    <div class="products-grid">
+
+      <div class="p-card">
+        <div class="p-img t-teal">
+          <span class="p-badge new">NEW</span>
+          <button class="p-wish">🤍</button>
+          <img src="https://www.rentocart.com/wp-content/uploads/2026/02/Macbook-M4-16GB-RAM-512GB-SSD.jpg.jpg.jpeg" alt="MacBook Pro M4"/>
+        </div>
+        <div class="p-body">
+          <div class="p-cat">Laptops</div>
+          <div class="p-name">MacBook Pro M4 · 16GB / 512GB SSD</div>
+          <div class="p-price-row"><span class="p-price">₹199</span><span class="p-unit">/day</span></div>
+          <div class="p-foot">
+            <div class="p-rating"><span class="star">★</span> 4.9 <span style="color:var(--ink-3)">(312)</span></div>
+            <button class="rent-btn">Rent Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-card">
+        <div class="p-img t-teal">
+          <span class="p-badge hot">🔥 HOT</span>
+          <button class="p-wish">🤍</button>
+          <img src="https://www.rentocart.com/wp-content/uploads/2024/05/MacBook-Air-M1-8GB-RAM-256-GB-SSD.jpg" alt="MacBook Air M1"/>
+        </div>
+        <div class="p-body">
+          <div class="p-cat">Laptops</div>
+          <div class="p-name">MacBook Air M1 · 8GB / 256GB SSD</div>
+          <div class="p-price-row"><span class="p-price">₹89</span><span class="p-unit">/day</span><span class="p-old">₹120</span></div>
+          <div class="p-foot">
+            <div class="p-rating"><span class="star">★</span> 4.9 <span style="color:var(--ink-3)">(342)</span></div>
+            <button class="rent-btn">Rent Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-card">
+        <div class="p-img t-orange">
+          <span class="p-badge pop">⭐ POPULAR</span>
+          <button class="p-wish">🤍</button>
+          <img src="https://www.rentocart.com/wp-content/uploads/2024/02/sony-playstation-5-disk-version-gaming-console-1-600x600-1.webp" alt="PlayStation 5"/>
+        </div>
+        <div class="p-body">
+          <div class="p-cat">Gaming</div>
+          <div class="p-name">PlayStation 5 + 2 DualSense Controllers</div>
+          <div class="p-price-row"><span class="p-price">₹120</span><span class="p-unit">/day</span></div>
+          <div class="p-foot">
+            <div class="p-rating"><span class="star">★</span> 4.9 <span style="color:var(--ink-3)">(491)</span></div>
+            <button class="rent-btn">Rent Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-card">
+        <div class="p-img t-blue">
+          <span class="p-badge hot">🔥 HOT</span>
+          <button class="p-wish">🤍</button>
+          <img src="https://www.rentocart.com/wp-content/uploads/2024/11/Epson-Projector-3300-Lumens.png" alt="Epson Projector"/>
+        </div>
+        <div class="p-body">
+          <div class="p-cat">Projectors</div>
+          <div class="p-name">Epson Full HD Projector · 3300 Lumens</div>
+          <div class="p-price-row"><span class="p-price">₹450</span><span class="p-unit">/day</span><span class="p-old">₹600</span></div>
+          <div class="p-foot">
+            <div class="p-rating"><span class="star">★</span> 4.7 <span style="color:var(--ink-3)">(154)</span></div>
+            <button class="rent-btn">Rent Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-card">
+        <div class="p-img t-green">
+          <span class="p-badge new">NEW</span>
+          <button class="p-wish">🤍</button>
+          <img src="https://www.rentocart.com/wp-content/uploads/2026/02/GoPro-hero-13.jpg.jpeg" alt="GoPro Hero 13"/>
+        </div>
+        <div class="p-body">
+          <div class="p-cat">Cameras</div>
+          <div class="p-name">GoPro Hero 13 · Action Camera</div>
+          <div class="p-price-row"><span class="p-price">₹280</span><span class="p-unit">/day</span></div>
+          <div class="p-foot">
+            <div class="p-rating"><span class="star">★</span> 4.8 <span style="color:var(--ink-3)">(203)</span></div>
+            <button class="rent-btn">Rent Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-card">
+        <div class="p-img t-teal">
+          <span class="p-badge pop">⭐ POPULAR</span>
+          <button class="p-wish">🤍</button>
+          <img src="https://www.rentocart.com/wp-content/uploads/2024/05/Honeywell-Air-Touch-V3-Air-Purifier-1.jpg" alt="Air Purifier"/>
+        </div>
+        <div class="p-body">
+          <div class="p-cat">Appliances</div>
+          <div class="p-name">Honeywell Air Touch V3 Purifier</div>
+          <div class="p-price-row"><span class="p-price">₹145</span><span class="p-unit">/day</span><span class="p-old">₹190</span></div>
+          <div class="p-foot">
+            <div class="p-rating"><span class="star">★</span> 4.8 <span style="color:var(--ink-3)">(276)</span></div>
+            <button class="rent-btn">Rent Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-card">
+        <div class="p-img t-orange">
+          <span class="p-badge hot">🔥 HOT</span>
+          <button class="p-wish">🤍</button>
+          <img src="https://www.rentocart.com/wp-content/uploads/2025/12/original-imaguyf2e6rbsnrf.webp" alt="Samsung Tab A9"/>
+        </div>
+        <div class="p-body">
+          <div class="p-cat">Tablets</div>
+          <div class="p-name">Samsung Galaxy Tab A9 · 8GB / 128GB</div>
+          <div class="p-price-row"><span class="p-price">₹75</span><span class="p-unit">/day</span></div>
+          <div class="p-foot">
+            <div class="p-rating"><span class="star">★</span> 4.7 <span style="color:var(--ink-3)">(187)</span></div>
+            <button class="rent-btn">Rent Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-card">
+        <div class="p-img t-blue">
+          <span class="p-badge pop">⭐ POPULAR</span>
+          <button class="p-wish">🤍</button>
+          <img src="https://www.rentocart.com/wp-content/uploads/2025/12/Intel-i7-10th-Gen-16GB-RAM-512-GB-SSD.jpg" alt="i7 Laptop"/>
+        </div>
+        <div class="p-body">
+          <div class="p-cat">Laptops</div>
+          <div class="p-name">Intel i7 10th Gen · 16GB / 512GB SSD</div>
+          <div class="p-price-row"><span class="p-price">₹95</span><span class="p-unit">/day</span><span class="p-old">₹130</span></div>
+          <div class="p-foot">
+            <div class="p-rating"><span class="star">★</span> 4.6 <span style="color:var(--ink-3)">(132)</span></div>
+            <button class="rent-btn">Rent Now</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════ HOW IT WORKS ════════ -->
+<section class="section how-sec" id="how">
+  <div class="container">
+    <div class="how-top">
+      <span class="eyebrow">Simple Process</span>
+      <h2 class="h2">Rent in <span class="gt">4 easy steps</span></h2>
+      <p class="lead" style="text-align:center">From browsing to doorstep delivery — the whole thing takes under 5 minutes.</p>
+    </div>
+    <div class="how-grid">
+      <div class="how-line"></div>
+      <div class="how-card">
+        <div class="step-circle">01</div>
+        <span class="step-emoji">🔍</span>
+        <h3 class="step-title">Browse & Select</h3>
+        <p class="step-desc">Search 1,000+ products. Filter by city, duration, and budget. Real-time availability.</p>
+      </div>
+      <div class="how-card">
+        <div class="step-circle">02</div>
+        <span class="step-emoji">🪪</span>
+        <h3 class="step-title">Quick KYC</h3>
+        <p class="step-desc">5-minute paperless verification. Upload Aadhaar + PAN once — remembered forever.</p>
+      </div>
+      <div class="how-card">
+        <div class="step-circle">03</div>
+        <span class="step-emoji">🚀</span>
+        <h3 class="step-title">Fast Delivery</h3>
+        <p class="step-desc">We deliver, install, and demo your rental within 24 hours. Zero hidden fees.</p>
+      </div>
+      <div class="how-card">
+        <div class="step-circle">04</div>
+        <span class="step-emoji">💳</span>
+        <h3 class="step-title">Pay & Enjoy</h3>
+        <p class="step-desc">Pay only after satisfaction. UPI, cards, wallets accepted. Upgrade or return anytime.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ STATS ════════ -->
+<div class="stats-banner">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-cell"><div class="stat-num">50K+</div><div class="stat-label">Happy Customers</div></div>
+      <div class="stat-cell"><div class="stat-num">1,000+</div><div class="stat-label">Products Available</div></div>
+      <div class="stat-cell"><div class="stat-num">9</div><div class="stat-label">Cities Covered</div></div>
+      <div class="stat-cell"><div class="stat-num">4.8★</div><div class="stat-label">Average Rating</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ CITIES ════════ -->
+<section class="section cities-sec" id="cities">
+  <div class="container">
+    <div class="sec-row">
+      <div>
+        <span class="eyebrow">We Deliver To</span>
+        <h2 class="h2">Your city, <span class="teal">covered.</span></h2>
+      </div>
+      <a href="#" class="see-all">All cities →</a>
+    </div>
+    <div class="cities-mosaic">
+      <div class="city-tile big">
+        <img src="https://images.unsplash.com/photo-1596176530529-78163a4f7af2?w=600&h=700&fit=crop&q=85&auto=format" alt="Bengaluru"/>
+        <div class="city-over">
+          <span class="city-pill">⭐ Most Popular</span>
+          <div class="city-name">Bengaluru</div>
+          <div class="city-count">320+ products · 24hr delivery</div>
+        </div>
+      </div>
+      <div class="city-tile">
+        <img src="https://images.unsplash.com/photo-1529253355930-ddbe423a2ac7?w=500&h=280&fit=crop&q=85&auto=format" alt="Mumbai"/>
+        <div class="city-over">
+          <div class="city-name">Mumbai</div>
+          <div class="city-count">280+ products</div>
+        </div>
+      </div>
+      <div class="city-tile">
+        <img src="https://images.unsplash.com/photo-1587474260584-136574528ed5?w=500&h=280&fit=crop&q=85&auto=format" alt="Delhi NCR"/>
+        <div class="city-over">
+          <div class="city-name">Delhi NCR</div>
+          <div class="city-count">260+ products</div>
+        </div>
+      </div>
+      <div class="city-tile">
+        <img src="https://images.unsplash.com/photo-1580581096469-1b5d87e4b19a?w=500&h=280&fit=crop&q=85&auto=format" alt="Hyderabad"/>
+        <div class="city-over">
+          <div class="city-name">Hyderabad</div>
+          <div class="city-count">195+ products</div>
+        </div>
+      </div>
+      <div class="city-tile">
+        <img src="https://images.unsplash.com/photo-1545566994-ced23c2f2d0c?w=500&h=280&fit=crop&q=85&auto=format" alt="Pune"/>
+        <div class="city-over">
+          <div class="city-name">Pune</div>
+          <div class="city-count">160+ products</div>
+        </div>
+      </div>
+      <div class="city-tile">
+        <img src="https://images.unsplash.com/photo-1555921015-5532091f6026?w=500&h=280&fit=crop&q=85&auto=format" alt="Kolkata"/>
+        <div class="city-over">
+          <div class="city-name">Kolkata</div>
+          <div class="city-count">175+ products</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ WHY RENT ════════ -->
+<section class="section why-sec">
+  <div class="container">
+    <div class="why-inner">
+      <div>
+        <span class="eyebrow">Why RentoCart</span>
+        <h2 class="h2">Renting is the <span class="teal">new owning</span></h2>
+        <p class="lead">Stop buying depreciating assets. Rent premium products, upgrade whenever you want, save up to 80%.</p>
+        <div class="why-feats">
+          <div class="why-feat"><div class="feat-ico fi-1">⬆️</div><div><div class="feat-title">Upgrade anytime — zero penalty</div><div class="feat-desc">Switch to the latest model whenever you want. No lock-in, no resale headache.</div></div></div>
+          <div class="why-feat"><div class="feat-ico fi-2">🛠️</div><div><div class="feat-title">Free maintenance & instant repair</div><div class="feat-desc">We fix any issue for free within 4 hours. Zero downtime guaranteed.</div></div></div>
+          <div class="why-feat"><div class="feat-ico fi-3">💰</div><div><div class="feat-title">Save up to 80% vs buying</div><div class="feat-desc">Pay only for the duration you use. No depreciation, no storage cost.</div></div></div>
+          <div class="why-feat"><div class="feat-ico fi-4">🔒</div><div><div class="feat-title">100% refundable security deposit</div><div class="feat-desc">Returned within 48 hours of product return. No questions asked.</div></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="comp">
+          <div class="comp-head">
+            <div class="comp-h">Feature</div>
+            <div class="comp-h">🟢 Rent</div>
+            <div class="comp-h">⚫ Buy</div>
+          </div>
+          <div class="comp-row"><div class="comp-f">Upfront cost</div><div class="comp-c yes">✅ Low</div><div class="comp-c no">❌ High</div></div>
+          <div class="comp-row"><div class="comp-f">Free maintenance</div><div class="comp-c yes">✅ Always</div><div class="comp-c no">❌ Your cost</div></div>
+          <div class="comp-row"><div class="comp-f">Upgrade flexibility</div><div class="comp-c yes">✅ Anytime</div><div class="comp-c no">❌ Resell first</div></div>
+          <div class="comp-row"><div class="comp-f">Depreciation risk</div><div class="comp-c yes">✅ Zero</div><div class="comp-c no">❌ High</div></div>
+          <div class="comp-row"><div class="comp-f">Delivery & setup</div><div class="comp-c yes">✅ Free 24hr</div><div class="comp-c mid">⚠️ Extra</div></div>
+          <div class="comp-row"><div class="comp-f">Eco-friendly</div><div class="comp-c yes">✅ Yes</div><div class="comp-c no">❌ Adds waste</div></div>
+          <div class="comp-row"><div class="comp-f">Cancel anytime</div><div class="comp-c yes">✅ Yes</div><div class="comp-c no">❌ Permanent</div></div>
+        </div>
+        <div style="margin-top:20px;text-align:center">
+          <a href="#products" class="btn btn-teal" style="display:inline-flex">Start Renting Today →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ ECO ════════ -->
+<section class="section eco-sec">
+  <div class="container">
+    <div class="eco-inner">
+      <div>
+        <span class="eyebrow" style="background:#D1FAE5;color:#059669">🌿 Green Impact</span>
+        <h2 class="h2">Every rental <span style="background:linear-gradient(135deg,#10B981,#059669);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">saves the planet</span></h2>
+        <p class="lead">Renting keeps electronics in use longer, reduces manufacturing demand, and cuts e-waste. ISO 14001 certified operations.</p>
+        <div class="eco-stats">
+          <div class="eco-stat"><div class="eco-sv">1L+</div><div class="eco-sl">Kg CO₂ saved this month</div></div>
+          <div class="eco-stat"><div class="eco-sv">8,400+</div><div class="eco-sl">Products recirculated</div></div>
+          <div class="eco-stat"><div class="eco-sv">ISO</div><div class="eco-sl">14001 Certified</div></div>
+        </div>
+      </div>
+      <div class="eco-vis">
+        <div class="eco-ring">
+          <div class="eco-center">
+            <div class="eco-earth">🌍</div>
+            <div class="eco-num">1,00,898</div>
+            <div class="eco-nlbl">Kg CO₂ saved</div>
+          </div>
+        </div>
+        <div class="eco-bub eb1"><div class="eco-bv">♻️ 8,400+</div><div class="eco-bl">products recirculated</div></div>
+        <div class="eco-bub eb2"><div class="eco-bv">🌱 Zero</div><div class="eco-bl">new e-waste</div></div>
+        <div class="eco-bub eb3"><div class="eco-bv">⚡ ISO</div><div class="eco-bl">14001 certified</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ TESTIMONIALS ════════ -->
+<section class="section testi-sec">
+  <div class="container">
+    <div class="testi-top">
+      <span class="eyebrow">Reviews</span>
+      <h2 class="h2">What renters <span class="teal">are saying</span></h2>
+    </div>
+    <div class="testi-grid">
+      <div class="t-card featured">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-txt">Rented a MacBook for 3 months for a project. Saved ₹1.2L vs buying and got free support the entire time. This is genuinely the smartest way to work.</p>
+        <div class="t-author"><div class="t-av">👨‍💼</div><div><div class="t-name">Arjun Mehta</div><div class="t-role">Product Manager · Bengaluru</div></div></div>
+      </div>
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-txt">Set up an entire home office — laptop, printer, webcam — delivered and installed within 24 hours. Completely seamless experience.</p>
+        <div class="t-author"><div class="t-av">👩‍💻</div><div><div class="t-name">Priya Krishnan</div><div class="t-role">Freelance Designer · Mumbai</div></div></div>
+      </div>
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-txt">We rented 40 laptops for a corporate training event. Flawless coordination, everything worked perfectly. Will use again for every event.</p>
+        <div class="t-author"><div class="t-av">🏢</div><div><div class="t-name">Rohan Sharma</div><div class="t-role">HR Manager · Delhi NCR</div></div></div>
+      </div>
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-txt">PS5 for my son's birthday party was a massive hit. Great condition, affordable, and they helped with setup. Kids were overjoyed!</p>
+        <div class="t-author"><div class="t-av">👨‍👧</div><div><div class="t-name">Vikram Nair</div><div class="t-role">Hyderabad</div></div></div>
+      </div>
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-txt">As a student who just moved to Bengaluru, renting made so much more sense than buying. Saved my first 3 months' salary for actual living expenses.</p>
+        <div class="t-author"><div class="t-av">🎓</div><div><div class="t-name">Karthik Raj</div><div class="t-role">Student · Bengaluru</div></div></div>
+      </div>
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-txt">GoPro Hero 13 for my trek was in pristine condition. Easy booking, on-time delivery. Deposit returned within 2 days of return. Excellent service.</p>
+        <div class="t-author"><div class="t-av">🏕️</div><div><div class="t-name">Sneha Patel</div><div class="t-role">Content Creator · Pune</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ APP CTA ════════ -->
+<section class="app-sec">
+  <div class="app-inner">
+    <div>
+      <div class="app-eyebrow">📱 Mobile App</div>
+      <h2 class="app-h2">Rent from your phone,<br/>anywhere, anytime</h2>
+      <p class="app-desc">Browse, order, track delivery, and manage all your rentals from one beautiful app. Available on iOS & Android.</p>
+      <div class="app-btns">
+        <div class="app-store">
+          <span class="as-ico">🍎</span>
+          <div><div class="as-sub">Download on the</div><div class="as-name">App Store</div></div>
+        </div>
+        <div class="app-store">
+          <span class="as-ico">▶️</span>
+          <div><div class="as-sub">Get it on</div><div class="as-name">Google Play</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="app-vis">
+      <div class="app-phone">📋</div>
+      <div class="app-phone main">📲</div>
+      <div class="app-phone">🛒</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ FOOTER ════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <img src="https://www.rentocart.com/wp-content/uploads/2023/03/img_1345_720.png" alt="RentoCart"/>
+        </div>
+        <div class="footer-tagline">
+          <span class="ftl-t">Rent</span><span class="ftl-s">·</span>
+          <span class="ftl-o">Relax</span><span class="ftl-s">·</span>
+          <span class="ftl-t">Return</span>
+        </div>
+        <p class="footer-desc">India's most trusted rental platform for premium electronics, appliances & gadgets.</p>
+        <div class="f-social">
+          <div class="f-soc">𝕏</div><div class="f-soc">in</div>
+          <div class="f-soc">f</div><div class="f-soc">▶</div>
+        </div>
+      </div>
+      <div>
+        <div class="f-col-h">Products</div>
+        <div class="f-links">
+          <a class="f-link">Laptops & MacBooks</a>
+          <a class="f-link">Televisions</a>
+          <a class="f-link">Gaming Consoles</a>
+          <a class="f-link">Projectors</a>
+          <a class="f-link">Kitchen Appliances</a>
+          <a class="f-link">Audio Systems</a>
+        </div>
+      </div>
+      <div>
+        <div class="f-col-h">Company</div>
+        <div class="f-links">
+          <a class="f-link">About Us</a>
+          <a class="f-link">How It Works</a>
+          <a class="f-link">Partner With Us</a>
+          <a class="f-link">Blog & News</a>
+          <a class="f-link">Careers</a>
+        </div>
+      </div>
+      <div>
+        <div class="f-col-h">Support</div>
+        <div class="f-links">
+          <a class="f-link">Help Center</a>
+          <a class="f-link">KYC Guide</a>
+          <a class="f-link">Delivery Info</a>
+          <a class="f-link">Refund Policy</a>
+          <a class="f-link">Contact Us</a>
+        </div>
+      </div>
+      <div>
+        <div class="f-col-h">Contact</div>
+        <div class="f-contact">
+          <div class="f-ci"><span class="f-ci-i">📞</span>+91 93303 91968</div>
+          <div class="f-ci"><span class="f-ci-i">📧</span>hello@rentocart.com</div>
+          <div class="f-ci"><span class="f-ci-i">📍</span>Bengaluru, India · 9 cities</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="f-copy">© 2024 RentoCart.com · All rights reserved.</div>
+      <div class="f-certs"><span class="f-cert">ISO 9001</span><span class="f-cert">ISO 14001</span><span class="f-cert">PCI-DSS</span></div>
+      <div class="f-legal"><a>Privacy Policy</a><a>Terms of Service</a><a>Cookie Policy</a></div>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-up" id="sup" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  // Navbar
+  const nav = document.getElementById('nav');
+  const sup = document.getElementById('sup');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+    sup.classList.toggle('show', window.scrollY > 400);
+  });
+
+  // Filter chips
+  document.querySelectorAll('.chip').forEach(c => {
+    c.addEventListener('click', () => {
+      document.querySelectorAll('.chip').forEach(x => x.classList.remove('on'));
+      c.classList.add('on');
+    });
+  });
+
+  // Wishlist toggle
+  document.querySelectorAll('.p-wish').forEach(b => {
+    b.addEventListener('click', e => {
+      e.stopPropagation();
+      b.textContent = b.textContent.trim() === '🤍' ? '❤️' : '🤍';
+    });
+  });
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll(
+    '.bento-card, .p-card, .how-card, .why-feat, .t-card, .city-tile, .eco-stat, .eco-bub'
+  ).forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    obs.observe(el);
+  });
+
+  // Smooth scroll nav links
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      const t = document.querySelector(link.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
+</body>
+</html>
