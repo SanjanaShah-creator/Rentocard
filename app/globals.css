@@ -621,6 +621,8 @@ nextjs-portal{display:none!important}
   .chip{flex-shrink:0}
 
   /* ── HOW IT WORKS — vertical timeline ── */
+  .how-top{margin-bottom:24px}
+  .why-sec .btn-teal{display:flex;width:100%;justify-content:center}
   .how-grid{grid-template-columns:1fr;gap:0;position:relative;padding-left:0}
   .how-grid::before{content:'';position:absolute;left:21px;top:46px;bottom:46px;width:2px;background:linear-gradient(to bottom,var(--teal) 0%,rgba(43,181,160,.2) 100%);border-radius:2px;z-index:0}
   .how-line{display:none}
