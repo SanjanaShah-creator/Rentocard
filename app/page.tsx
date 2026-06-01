@@ -1,8 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const CHIPS = ['All Products', 'Laptops', 'Gaming', 'Cameras', 'Projectors', 'Appliances', 'Tablets']
+const CITIES = ['Bengaluru','Mumbai','Delhi NCR','Hyderabad','Pune','Kolkata','Chennai','Ahmedabad']
 
 const PRODUCTS = [
   { id: 'mbm4',  cat: 'Laptops',    badge: 'new',  img: 'https://www.rentocart.com/wp-content/uploads/2026/02/Macbook-M4-16GB-RAM-512GB-SSD.jpg.jpg.jpeg', name: 'MacBook Pro M4 · 16GB / 512GB SSD',            price: '₹199', period: '/day', old: '',      rating: '4.9', reviews: '312', tint: 't-teal'   },
@@ -16,10 +17,16 @@ const PRODUCTS = [
 ]
 
 export default function Home() {
-  const [scrolled, setScrolled]       = useState(false)
-  const [showTop, setShowTop]         = useState(false)
-  const [chip, setChip]               = useState('All Products')
-  const [wishlist, setWishlist]       = useState<Set<string>>(new Set())
+  const [scrolled, setScrolled]         = useState(false)
+  const [showTop, setShowTop]           = useState(false)
+  const [chip, setChip]                 = useState('All Products')
+  const [wishlist, setWishlist]         = useState<Set<string>>(new Set())
+  const [selectedCity, setSelectedCity] = useState('Bengaluru')
+  const [cityOpen, setCityOpen]         = useState(false)
+  const [heroCityOpen, setHeroCityOpen] = useState(false)
+  const [mobileOpen, setMobileOpen]     = useState(false)
+  const cityRef     = useRef<HTMLDivElement>(null)
+  const heroCityRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const onScroll = () => {
@@ -28,6 +35,15 @@ export default function Home() {
     }
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (cityRef.current && !cityRef.current.contains(e.target as Node)) setCityOpen(false)
+      if (heroCityRef.current && !heroCityRef.current.contains(e.target as Node)) setHeroCityOpen(false)
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
   }, [])
 
   useEffect(() => {
@@ -76,10 +92,37 @@ export default function Home() {
             ))}
           </ul>
           <div className="nav-right">
-            <div className="nav-city"><span className="live-dot" />Bengaluru ▾</div>
+            <div className={`nav-city${cityOpen ? ' open' : ''}`} onClick={() => setCityOpen(o => !o)} ref={cityRef}>
+              <span className="live-dot" />{selectedCity} ▾
+              <div className="city-dd">
+                {CITIES.map(c => (
+                  <button key={c} className={`city-dd-opt${c === selectedCity ? ' sel' : ''}`}
+                    onClick={e => { e.stopPropagation(); setSelectedCity(c); setCityOpen(false) }}>
+                    {c}
+                  </button>
+                ))}
+              </div>
+            </div>
             <a href="#" className="nav-login">Log In</a>
             <a href="#products" className="nav-cta">Rent Now →</a>
-            <div className="nav-ham"><span /><span /><span /></div>
+            <div className={`nav-ham${mobileOpen ? ' open' : ''}`} onClick={() => setMobileOpen(o => !o)}><span /><span /><span /></div>
+          </div>
+        </div>
+        <div className={`mobile-menu${mobileOpen ? ' open' : ''}`}>
+          <ul className="mmenu-links">
+            {['Home','Categories','Products','Cities','Partner With Us','Blog'].map((l, i) => (
+              <li key={l}><a href={i===0?'#':i===1?'#categories':i===2?'#products':i===3?'#cities':'#'} className="mmenu-a" onClick={() => setMobileOpen(false)}>{l}</a></li>
+            ))}
+          </ul>
+          <a href="#products" className="mmenu-cta" onClick={() => setMobileOpen(false)}>Rent Now →</a>
+          <div className="mmenu-cities">
+            <div className="mmenu-city-lbl">Select City</div>
+            <div className="mmenu-city-grid">
+              {CITIES.map(c => (
+                <button key={c} className={`mmenu-city-btn${c === selectedCity ? ' sel' : ''}`}
+                  onClick={() => { setSelectedCity(c); setMobileOpen(false) }}>{c}</button>
+              ))}
+            </div>
           </div>
         </div>
       </nav>
@@ -89,8 +132,12 @@ export default function Home() {
 
         {/* Full-bleed background image */}
         <div className="hero-bg-img">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/Hero Section Light.png" alt="Rent premium electronics" />
+          <picture>
+            <source media="(max-width: 640px)"  srcSet="/Hero%20Section%20Mobile.png" />
+            <source media="(max-width: 1700px)" srcSet="/Hero%20section%20Tablet.png" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/Hero%20Section%20Desktop.png" alt="Rent premium electronics" />
+          </picture>
         </div>
 
         {/* Text — overlaid on the image, left side */}
@@ -98,7 +145,8 @@ export default function Home() {
           <div className="hero-badge">
             <span className="badge-dot" />
             <span className="badge-hi">New</span>
-            &nbsp;— MacBook Pro M4 now available for rent
+            <span className="badge-txt-full">&nbsp;— MacBook Pro M4 now available for rent</span>
+            <span className="badge-txt-short">&nbsp;— MacBook Pro M4</span>
           </div>
           <h1 className="hero-h1">
             Rent Laptops, TVs<br />&amp; Premium Gear
@@ -114,16 +162,22 @@ export default function Home() {
 
         {/* Search bar — absolute bottom right */}
         <div className="hero-chip-bar">
-          <div className="hcb-field">
-            <span className="hcb-lbl">📍 City</span>
-            <span className="hcb-val">Bengaluru ▾</span>
+          <div className={`hcb-field hcb-city${heroCityOpen ? ' open' : ''}`} onClick={() => setHeroCityOpen(o => !o)} ref={heroCityRef}>
+            <span className="hcb-lbl"><span className="material-icons hcb-ico">location_on</span>Location</span>
+            <span className="hcb-val">{selectedCity} ▾</span>
+            <div className="hero-city-dd">
+              {CITIES.map(c => (
+                <button key={c} className={`city-dd-opt${c === selectedCity ? ' sel' : ''}`}
+                  onClick={e => { e.stopPropagation(); setSelectedCity(c); setHeroCityOpen(false) }}>{c}</button>
+              ))}
+            </div>
           </div>
           <div className="hcb-sep" />
           <div className="hcb-field hcb-field--grow">
-            <span className="hcb-lbl">🔍 What do you need?</span>
+            <span className="hcb-lbl"><span className="material-icons hcb-ico">search</span>What do you need?</span>
             <input className="hcb-input" type="text" placeholder="Laptops, PS5, TV, projector…" />
           </div>
-          <button className="hcb-btn">Find →</button>
+          <button className="hcb-btn">Find <span className="material-icons" style={{fontSize:'17px',verticalAlign:'middle'}}>arrow_forward</span></button>
         </div>
 
       </section>
@@ -233,8 +287,8 @@ export default function Home() {
             {PRODUCTS.map(p => (
               <div key={p.id} className="p-card">
                 <div className={`p-img ${p.tint}`}>
-                  <span className={`p-badge ${p.badge}`}>{p.badge==='hot'?'🔥 HOT':p.badge==='new'?'✨ NEW':'⭐ POPULAR'}</span>
-                  <button className="p-wish" onClick={() => toggleWish(p.id)}>{wishlist.has(p.id) ? '❤️' : '🤍'}</button>
+                  <span className={`p-badge ${p.badge}`}><span className="material-icons" style={{fontSize:'11px',verticalAlign:'middle',marginRight:'3px'}}>{p.badge==='hot'?'local_fire_department':p.badge==='new'?'auto_awesome':'grade'}</span>{p.badge==='hot'?'HOT':p.badge==='new'?'NEW':'POPULAR'}</span>
+                  <button className="p-wish" onClick={() => toggleWish(p.id)}><span className={`material-icons p-wish-ico${wishlist.has(p.id) ? ' active' : ''}`}>{wishlist.has(p.id) ? 'favorite' : 'favorite_border'}</span></button>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={p.img} alt={p.name} />
                 </div>
@@ -268,14 +322,14 @@ export default function Home() {
           <div className="how-grid">
             <div className="how-line" />
             {[
-              { n:'01', e:'🔍', t:'Browse & Select',   d:'Search 1,000+ products. Filter by city, duration, and budget.' },
-              { n:'02', e:'🪪', t:'Quick KYC',          d:'5-minute paperless verification. Upload Aadhaar + PAN once — remembered forever.' },
-              { n:'03', e:'🚀', t:'Fast Delivery',       d:'We deliver, install, and demo your rental within 24 hours. Zero hidden fees.' },
-              { n:'04', e:'💳', t:'Pay & Enjoy',         d:'Pay only after satisfaction. UPI, cards, wallets. Upgrade or return anytime.' },
+              { n:'01', e:'manage_search',   t:'Browse & Select',   d:'Search 1,000+ products. Filter by city, duration, and budget.' },
+              { n:'02', e:'verified_user',   t:'Quick KYC',          d:'5-minute paperless verification. Upload Aadhaar + PAN once — remembered forever.' },
+              { n:'03', e:'local_shipping',  t:'Fast Delivery',       d:'We deliver, install, and demo your rental within 24 hours. Zero hidden fees.' },
+              { n:'04', e:'payment',         t:'Pay & Enjoy',         d:'Pay only after satisfaction. UPI, cards, wallets. Upgrade or return anytime.' },
             ].map(s => (
               <div key={s.n} className="how-card">
                 <div className="step-circle">{s.n}</div>
-                <span className="step-emoji">{s.e}</span>
+                <span className="material-icons step-emoji">{s.e}</span>
                 <h3 className="step-title">{s.t}</h3>
                 <p className="step-desc">{s.d}</p>
               </div>
@@ -320,7 +374,7 @@ export default function Home() {
               { img:'https://images.unsplash.com/photo-1587474260584-136574528ed5?w=500&h=280&fit=crop&q=85', name:'Delhi NCR', count:'260+' },
               { img:'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=500&h=280&fit=crop&q=85', name:'Hyderabad', count:'195+' },
               { img:'https://images.unsplash.com/photo-1567157577867-05ccb1388e66?w=500&h=280&fit=crop&q=85',    name:'Pune',      count:'160+' },
-              { img:'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=500&h=280&fit=crop&q=85',    name:'Kolkata',   count:'175+' },
+              { img:'/kolkata.jpg',                                                                                   name:'Kolkata',   count:'175+' },
             ].map(c => (
               <div key={c.name} className="city-tile">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -345,13 +399,13 @@ export default function Home() {
               <p className="lead">Stop buying depreciating assets. Rent premium products, upgrade whenever you want, save up to 80%.</p>
               <div className="why-feats">
                 {[
-                  { ico:'⬆️', cls:'fi-1', t:'Upgrade anytime — zero penalty',        d:'Switch to the latest model whenever you want. No lock-in, no resale headache.' },
-                  { ico:'🛠️', cls:'fi-2', t:'Free maintenance & instant repair',      d:'We fix any issue for free within 4 hours. Zero downtime guaranteed.' },
-                  { ico:'💰', cls:'fi-3', t:'Save up to 80% vs buying',               d:'Pay only for the duration you use. No depreciation, no storage cost.' },
-                  { ico:'🔒', cls:'fi-4', t:'100% refundable security deposit',       d:'Returned within 48 hours of product return. No questions asked.' },
+                  { ico:'upgrade',    cls:'fi-1', t:'Upgrade anytime — zero penalty',        d:'Switch to the latest model whenever you want. No lock-in, no resale headache.' },
+                  { ico:'build',      cls:'fi-2', t:'Free maintenance & instant repair',      d:'We fix any issue for free within 4 hours. Zero downtime guaranteed.' },
+                  { ico:'savings',    cls:'fi-3', t:'Save up to 80% vs buying',               d:'Pay only for the duration you use. No depreciation, no storage cost.' },
+                  { ico:'lock',       cls:'fi-4', t:'100% refundable security deposit',       d:'Returned within 48 hours of product return. No questions asked.' },
                 ].map(f => (
                   <div key={f.t} className="why-feat">
-                    <div className={`feat-ico ${f.cls}`}>{f.ico}</div>
+                    <div className={`feat-ico ${f.cls}`}><span className="material-icons">{f.ico}</span></div>
                     <div><div className="feat-title">{f.t}</div><div className="feat-desc">{f.d}</div></div>
                   </div>
                 ))}
@@ -405,14 +459,14 @@ export default function Home() {
             <div className="eco-vis">
               <div className="eco-ring">
                 <div className="eco-center">
-                  <div className="eco-earth">🌍</div>
+                  <div className="eco-earth"><span className="material-icons">public</span></div>
                   <div className="eco-num">1,00,898</div>
                   <div className="eco-nlbl">Kg CO₂ saved</div>
                 </div>
               </div>
-              <div className="eco-bub eb1"><div className="eco-bv">♻️ 8,400+</div><div className="eco-bl">products recirculated</div></div>
-              <div className="eco-bub eb2"><div className="eco-bv">🌱 Zero</div><div className="eco-bl">new e-waste</div></div>
-              <div className="eco-bub eb3"><div className="eco-bv">⚡ ISO</div><div className="eco-bl">14001 certified</div></div>
+              <div className="eco-bub eb1"><div className="eco-bv"><span className="material-icons" style={{fontSize:'16px',verticalAlign:'middle',marginRight:'4px'}}>recycling</span>8,400+</div><div className="eco-bl">products recirculated</div></div>
+              <div className="eco-bub eb2"><div className="eco-bv"><span className="material-icons" style={{fontSize:'16px',verticalAlign:'middle',marginRight:'4px'}}>eco</span>Zero</div><div className="eco-bl">new e-waste</div></div>
+              <div className="eco-bub eb3"><div className="eco-bv"><span className="material-icons" style={{fontSize:'16px',verticalAlign:'middle',marginRight:'4px'}}>bolt</span>ISO</div><div className="eco-bl">14001 certified</div></div>
             </div>
           </div>
         </div>
@@ -593,7 +647,7 @@ export default function Home() {
       </footer>
 
       {/* Scroll to top */}
-      <button className={`scroll-up${showTop?' show':''}`} onClick={() => window.scrollTo({top:0,behavior:'smooth'})}>↑</button>
+      <button className={`scroll-up${showTop?' show':''}`} onClick={() => window.scrollTo({top:0,behavior:'smooth'})}><span className="material-icons">keyboard_arrow_up</span></button>
     </>
   )
 }
